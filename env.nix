@@ -11,7 +11,6 @@ let
     docker
   ];
   user = [
-    gnome-disk-utility
     keybase
     gnupg1
     google-chrome
