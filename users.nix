@@ -5,7 +5,7 @@
     {
       name = "roberto";
       gid = 1000;
-    ]
+    }
   ];
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.roberto = {

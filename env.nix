@@ -11,6 +11,9 @@ let
     docker
   ];
   user = [
+    gnome-disk-utility
+    keybase
+    gnupg1
     google-chrome
     firefox
     taskwarrior
@@ -32,6 +35,7 @@ let
     patchelf
     binutils
     gcc
+    gfortran
     doxygen
     cmake
     automake

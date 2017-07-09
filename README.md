@@ -18,8 +18,8 @@ Configure the base OS:
 Configure the user account:
 
     # su - username
-    $ git clone https://github.com/robertodr/dotfiles .dotfiles
+    $ git clone https://github.com/robertodr/dots .dots
     $ git clone https://github.com/robertodr/xmonad .xmonad
-    $ ln -s .dotfiles/default.nix .
+    $ ln -s .dots/default.nix .
     $ vim default.nix
     $ nix-home
