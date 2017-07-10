@@ -11,6 +11,7 @@ let
     docker
   ];
   user = [
+    st
     keybase
     gnupg1
     google-chrome
@@ -30,11 +31,14 @@ let
     xorg.xvinfo
   ];
   devel = [
+    lcov
     git
     patchelf
     binutils
     gcc
     gfortran
+    openmpi
+    clang
     doxygen
     cmake
     automake
@@ -70,8 +74,12 @@ let
     glirc
   ];
   python27 = with python27Packages; [
+    jupyter
     matplotlib
     numpy
+    scipy
+    sympy
+    sphinx
   ];
 in
     user ++
