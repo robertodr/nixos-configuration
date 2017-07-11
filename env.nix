@@ -11,6 +11,7 @@ let
     docker
   ];
   user = [
+    hack-font
     st
     keybase
     gnupg1
@@ -18,10 +19,8 @@ let
     firefox
     taskwarrior
     pass
-    nix-home
     spotify
     drive
-    gnupg
     liferea
     meld
     rambox
@@ -31,9 +30,8 @@ let
     xorg.xvinfo
   ];
   devel = [
+    valgrind
     lcov
-    git
-    patchelf
     binutils
     gcc
     gfortran

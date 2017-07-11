@@ -41,9 +41,11 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
+    # core
     stdenv
     findutils
     coreutils
+    gnumake
     psmisc
     iputils
     nettools
@@ -54,18 +56,36 @@
     python
     file
     bc
-    nix-prefetch-git
-    nixos-container
+    wget
+    curl
+    unrar
+    tree
+    unzip 
     fish
     neovim
-    wget
+    git
+
+    # nix
+    nix-home
+    nix-repl
+    nix-prefetch-git
+    nixos-container
+    patchelf
   ]
   ++ (import ./env.nix pkgs);
 
   programs.fish.enable = true;
   programs.tmux.enable = true;
   
+  # editor is always nvim
+  environment.variables.EDITOR = "nvim";
+  
   virtualisation.docker.enable = false;
+  
+  nix = rec {
+    # use nix sandboxing for greater determinism
+    useSandbox = true;
+  };
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "17.03";
