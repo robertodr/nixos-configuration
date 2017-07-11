@@ -66,7 +66,6 @@
     git
 
     # nix
-    nix-home
     nix-repl
     nix-prefetch-git
     nixos-container

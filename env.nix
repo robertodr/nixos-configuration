@@ -9,6 +9,7 @@ let
     nmap
     xsel
     docker
+    nix-home
   ];
   user = [
     hack-font
