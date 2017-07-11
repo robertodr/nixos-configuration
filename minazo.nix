@@ -1,5 +1,7 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
+  environment.variables.BROWSER = "google-chrome";
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -20,4 +22,24 @@
   };
 
   services.nixosManual.showManual = true;
+  
+  fonts = {
+    fontconfig = {
+      enable = true;
+    };
+
+    enableCoreFonts = true;
+    enableFontDir = true;
+    enableGhostscriptFonts = true;
+
+    fonts = with pkgs; [
+      terminus_font
+      corefonts           # Microsoft free fonts
+      inconsolata         # monospaced
+      ubuntu_font_family  # Ubuntu fonts
+      unifont             # some international languages
+      font-awesome-ttf
+      hack-font
+    ];
+  };
 }
