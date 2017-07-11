@@ -3,7 +3,6 @@ with pkgs;
 let
   nix-home = pkgs.callPackage ./nix-home.nix {};
   sys = [
-    dpkg
     cryptsetup
     fuse
     nmap
@@ -84,4 +83,5 @@ in
     user ++
     devel ++
     haskell ++
-    python27
+    python27 ++
+    sys
