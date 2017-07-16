@@ -12,7 +12,6 @@ let
   ];
   user = [
     hack-font
-    st
     keybase
     gnupg1
     google-chrome
@@ -79,9 +78,39 @@ let
     sympy
     sphinx
   ];
+  tex = [
+    biber
+    (texlive.combine {
+       inherit (texlive) collection-basic
+                         collection-bibtexextra
+                         collection-binextra
+                         collection-fontsextra
+                         collection-fontsrecommended
+                         collection-fontutils
+                         collection-formatsextra
+                         collection-genericextra
+                         collection-genericrecommended
+                         collection-langenglish
+                         collection-langeuropean
+                         collection-langitalian
+                         collection-latex
+                         collection-latexextra
+                         collection-latexrecommended
+                         collection-luatex
+                         collection-mathextra
+                         collection-metapost
+                         collection-pictures
+                         collection-plainextra
+                         collection-pstricks
+                         collection-publishers
+                         collection-science
+                         collection-xetex;
+    })
+  ];
 in
     user ++
     devel ++
     haskell ++
     python27 ++
-    sys
+    sys ++
+    tex

@@ -24,8 +24,12 @@
     }
   ]; 
 
-  networking.hostName = "minazo"; # Define your hostname.
-  networking.networkmanager.enable = true; 
+  networking = {
+    hostName = "minazo"; # Define your hostname.
+    networkmanager.enable = true; 
+    # Needed to install TeXLive
+    extraHosts = "52.3.234.160	lipa.ms.mff.cuni.cz";
+  };
 
   # Select internationalisation properties.
   i18n = {
@@ -37,7 +41,9 @@
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+  };
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
