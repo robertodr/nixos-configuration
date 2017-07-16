@@ -75,6 +75,7 @@
     nix-repl
     nix-prefetch-git
     nixos-container
+    nox
     patchelf
   ]
   ++ (import ./env.nix pkgs);
@@ -87,11 +88,6 @@
   
   virtualisation.docker.enable = false;
   
-  nix = rec {
-    # use nix sandboxing for greater determinism
-    useSandbox = true;
-  };
-
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "17.03";
 
