@@ -4,113 +4,117 @@ let
   nix-home = pkgs.callPackage ./nix-home.nix {};
   sys = [
     cryptsetup
-    fuse
-    nmap
-    xsel
     docker
+    fuse
     nix-home
+    nmap
+    xclip
+    xsel
   ];
   user = [
-    hack-font
-    keybase
+    drive
+    firefox
     gnupg1
     google-chrome
-    firefox
-    taskwarrior
-    pass
-    spotify
-    drive
+    hack-font
+    keybase
     liferea
     meld
+    pass
     rambox
-    thunderbird
+    spotify
+    taskwarrior
     vlc
     xorg.xmessage
     xorg.xvinfo
   ];
   devel = [
-    valgrind
-    lcov
+    autoconf
+    automake
+    boost
     binutils
+    ccache
+    clang
+    cmake
+    doxygen
     gcc
     gfortran
-    openmpi
-    clang
-    doxygen
-    cmake
-    automake
-    autoconf
+    lcov
     libtool
+    openmpi
+    valgrind
+    zlib
   ];
   haskell = with haskellPackages; [
-    ghc
+    aeson
+    alex
     cabal-install
     cabal2nix
-    ghc-mod
-    stack
-    alex
-    happy
+    codex
+    contravariant
     cpphs
-    hscolour
-    hlint
+    ghc
+    ghc-mod
+    glirc
     haddock
+    happy
+    hasktags
+    hindent
+    hlint
+    hscolour
+    parallel
     pointfree
     pointful
-    hasktags
-    threadscope
-    hindent
-    codex
-    parallel
-    aeson
+    profunctors
     split
+    stack
     tasty
     tasty-hunit
     tasty-smallcheck
-    contravariant
-    profunctors
-    glirc
+    threadscope
   ];
   python27 = with python27Packages; [
     jupyter
     matplotlib
     numpy
     scipy
-    sympy
     sphinx
+    sympy
   ];
   tex = [
     biber
     (texlive.combine {
-       inherit (texlive) collection-basic
-                         collection-bibtexextra
-                         collection-binextra
-                         collection-fontsextra
-                         collection-fontsrecommended
-                         collection-fontutils
-                         collection-formatsextra
-                         collection-genericextra
-                         collection-genericrecommended
-                         collection-langenglish
-                         collection-langeuropean
-                         collection-langitalian
-                         collection-latex
-                         collection-latexextra
-                         collection-latexrecommended
-                         collection-luatex
-                         collection-mathextra
-                         collection-metapost
-                         collection-pictures
-                         collection-plainextra
-                         collection-pstricks
-                         collection-publishers
-                         collection-science
-                         collection-xetex;
+       inherit (texlive) 
+       collection-basic
+       collection-bibtexextra
+       collection-binextra
+       collection-fontsextra
+       collection-fontsrecommended
+       collection-fontutils
+       collection-formatsextra
+       collection-genericextra
+       collection-genericrecommended
+       collection-langenglish
+       collection-langeuropean
+       collection-langitalian
+       collection-latex
+       collection-latexextra
+       collection-latexrecommended
+       collection-luatex
+       collection-mathextra
+       collection-metapost
+       collection-pictures
+       collection-plainextra
+       collection-pstricks
+       collection-publishers
+       collection-science
+       collection-xetex;
     })
   ];
 in
-    user ++
     devel ++
     haskell ++
     python27 ++
     sys ++
-    tex
+    tex ++
+    user

@@ -48,32 +48,32 @@
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
     # core
-    stdenv
-    findutils
+    bc
     coreutils
+    curl
+    file
+    findutils
+    fish
+    git
     gnumake
-    psmisc
-    iputils
-    nettools
-    netcat
-    rsync
     htop
     iotop
-    python
-    file
-    bc
-    wget
-    curl
-    unrar
-    tree
-    unzip 
-    fish
+    iputils
     neovim
-    git
+    netcat
+    nettools
+    psmisc
+    python
+    rsync
+    stdenv
+    tree
+    unrar
+    unzip 
+    wget
 
     # nix
-    nix-repl
     nix-prefetch-git
+    nix-repl
     nixos-container
     nox
     patchelf
