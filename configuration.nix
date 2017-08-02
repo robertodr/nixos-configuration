@@ -9,7 +9,7 @@
     [ 
       ./hardware-configuration.nix
       ./users.nix
-      ./minazo.nix
+      ./services-fonts.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -46,47 +46,167 @@
   };
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
-  environment.systemPackages = with pkgs; [
-    # core
-    bc
-    coreutils
-    curl
-    file
-    findutils
-    fish
-    git
-    gnumake
-    htop
-    iotop
-    iputils
-    neovim
-    netcat
-    nettools
-    psmisc
-    python
-    rsync
-    stdenv
-    tree
-    unrar
-    unzip 
-    wget
-
-    # nix
-    nix-prefetch-git
-    nix-repl
-    nixos-container
-    nox
-    patchelf
-  ]
-  ++ (import ./env.nix pkgs);
+  environment.systemPackages = with pkgs; 
+  let
+    nix-home = pkgs.callPackage ./nix-home.nix {};
+    ninja-kitware = pkgs.callPackage ./ninja-kitware.nix {};
+    core-packages = [
+      acpi          
+      atool
+      autoconf
+      automake
+      bc               
+      bgs
+      binutils
+      bmon
+      cmake
+      coreutils
+      cryptsetup
+      curl
+      direnv
+      dmenu
+      dunst
+      file
+      findutils
+      fish
+      fuse
+      gcc
+      gitFull
+      gnumake
+      htop
+      i3lock
+      inotify-tools
+      iotop
+      iputils
+      libreoffice
+      neovim
+      netcat
+      nettools
+      ninja-kitware
+      nmap
+      psmisc
+      rsync
+      stdenv
+      traceroute
+      tree
+      unrar
+      unzip 
+      wget
+      which
+      xbindkeys
+      xclip
+      xlibs.xinput
+      xlibs.xmodmap
+      xorg.xmessage
+      xorg.xvinfo
+      xsel
+      zip
+    ];
+    crypt-packages = [
+      git-crypt
+      gnupg1
+      keybase
+    ];
+    haskell-packages = with haskellPackages; [
+      alex
+      cabal-install
+      cabal2nix
+      ghc
+      ghc-mod
+      happy
+      hindent
+      hlint
+      hscolour
+      stack
+    ];
+    nix-packages = [                   
+      nix-home
+      nix-prefetch-git
+      nix-repl
+      nixos-container
+      nixpkgs-lint
+      nox
+      patchelf
+    ];
+    python-packages = with python35Packages; [
+      jupyter    
+      matplotlib
+      numpy
+      python3
+      pyyaml
+      scipy
+      sphinx
+      sympy
+    ];
+    texlive-packages = [
+      biber                            
+      (texlive.combine {
+         inherit (texlive) 
+         collection-basic
+         collection-bibtexextra
+         collection-binextra
+         collection-fontsextra
+         collection-fontsrecommended
+         collection-fontutils
+         collection-formatsextra
+         collection-genericextra
+         collection-genericrecommended
+         collection-langenglish
+         collection-langeuropean
+         collection-langitalian
+         collection-latex
+         collection-latexextra
+         collection-latexrecommended
+         collection-luatex
+         collection-mathextra
+         collection-metapost
+         collection-pictures
+         collection-plainextra
+         collection-pstricks
+         collection-publishers
+         collection-science
+         collection-xetex;
+      })
+    ];
+    user-packages = [                   
+      areca         
+      aspell
+      aspellDicts.en
+      aspellDicts.it
+      aspellDicts.nb
+      calibre
+      drive 
+      evince
+      feh
+      firefox
+      geeqie
+      ghostscript
+      google-chrome
+      imagemagick
+      liferea
+      meld
+      pass
+      pdftk
+      phototonic
+      quasselClient
+      rambox
+      spotify
+      taskwarrior
+      vlc
+    ];
+  in 
+    core-packages ++
+    crypt-packages ++
+    haskell-packages ++
+    nix-packages ++
+    python-packages ++
+    texlive-packages ++
+    user-packages;
 
   programs.fish.enable = true;
   programs.tmux.enable = true;
   
-  # editor is always nvim
-  environment.variables.EDITOR = "nvim";
-  
-  virtualisation.docker.enable = false;
+  virtualisation.docker.enable = true;
   
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "17.03";

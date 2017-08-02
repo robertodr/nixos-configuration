@@ -1,7 +1,5 @@
 { config, pkgs, ... }:
 {
-  environment.variables.BROWSER = "google-chrome";
-
   # Enable CUPS to print documents.
   services = {
     printing.enable = true;

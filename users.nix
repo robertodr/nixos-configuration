@@ -12,16 +12,17 @@
     description = "Roberto Di Remigio";
     group = "roberto";
     extraGroups = [
-      "users"
-      "wheel" 
-      "disk" 
-      "audio" 
-      "video"
-      "networkmanager" 
-      "systemd-journal"
-      "root" 
       "adm" 
+      "audio" 
       "cdrom"
+      "disk" 
+      "docker"
+      "networkmanager" 
+      "root" 
+      "systemd-journal"
+      "users"
+      "video"
+      "wheel" 
     ];
     home = "/home/roberto";
     createHome = true; 

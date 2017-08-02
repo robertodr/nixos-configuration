@@ -39,32 +39,32 @@
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
     # core
-    stdenv
-    findutils
+    bc
     coreutils
+    curl
+    file
+    findutils
+    fish
+    gitFull
     gnumake
-    psmisc
-    iputils
-    nettools
-    netcat
-    rsync
     htop
     iotop
-    python
-    file
-    bc
-    wget
-    curl
-    unrar
-    tree
-    unzip
-    fish
+    iputils
     neovim
-    git
+    netcat
+    nettools
+    psmisc
+    python
+    rsync
+    stdenv
+    tree
+    unrar
+    unzip
+    wget
 
     # nix
-    nix-repl
     nix-prefetch-git
+    nix-repl
     nixos-container
     patchelf
   ];
@@ -75,8 +75,6 @@
   # editor is always nvim
   environment.variables.EDITOR = "nvim";
   
-  virtualisation.docker.enable = false;
-
   # Enable CUPS to print documents.
   services.printing.enable = true;
   # Enable the X11 windowing system.
@@ -104,20 +102,23 @@
 
   services.nixosManual.showManual = true;
 
+  virtualisation.docker.enable = true;
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.roberto = {
     description = "Roberto Di Remigio";
     extraGroups = [
-      "users"
-      "wheel" 
-      "disk" 
-      "audio" 
-      "video"
-      "networkmanager" 
-      "systemd-journal"
-      "root" 
       "adm" 
+      "audio" 
       "cdrom"
+      "disk" 
+      "docker"
+      "networkmanager" 
+      "root" 
+      "systemd-journal"
+      "users"
+      "video"
+      "wheel" 
     ];
     home = "/home/roberto";
     createHome = false;
