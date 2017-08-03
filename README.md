@@ -9,11 +9,14 @@ Configure the base OS:
 
     # nix-env -i git vim
     # cd /tmp
-    # git clone https://github.com/juselius/nixos-configuration
+    # git clone https://github.com/robertodr/nixos-configuration
     # cp nixos-configuration/*.nix /etc/nixos/
     # vim /etc/nixos/configuration.nix
     # nixos-rebuild switch
     # reboot
+
+**WARNING** The configuration in the repo might not work succesfully due to some packages.
+In case that happens, comment them and proceed with installation. You can fix those packages afterwards.
 
 Configure the user account:
 
