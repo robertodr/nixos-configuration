@@ -62,6 +62,7 @@
       cmake
       coreutils
       cryptsetup
+      ctags
       curl
       direnv
       dmenu
@@ -84,6 +85,7 @@
       nettools
       ninja-kitware
       nmap
+      ack
       psmisc
       rsync
       stdenv
@@ -181,7 +183,7 @@
       firefox
       geeqie
       ghostscript
-      google-chrome
+      chromium
       imagemagick
       liferea
       meld
