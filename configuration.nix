@@ -137,6 +137,7 @@
       patchelf
     ];
     python-packages = with python35Packages; [
+      jedi
       jupyter
       matplotlib
       numpy
@@ -145,6 +146,7 @@
       scipy
       sphinx
       sympy
+      yapf
     ];
     texlive-packages = [
       biber
