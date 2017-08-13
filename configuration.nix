@@ -6,7 +6,7 @@
 
 {
   imports =
-    [ 
+    [
       ./hardware-configuration.nix
       ./users.nix
       ./services-fonts.nix
@@ -22,13 +22,13 @@
       device = "/dev/sda3";
       preLVM = true;
     }
-  ]; 
+  ];
 
   networking = {
     hostName = "minazo"; # Define your hostname.
-    networkmanager.enable = true; 
+    networkmanager.enable = true;
     # Needed to install TeXLive
-    extraHosts = "52.3.234.160	lipa.ms.mff.cuni.cz";
+    extraHosts = "52.3.234.160  lipa.ms.mff.cuni.cz";
   };
 
   # Select internationalisation properties.
@@ -46,19 +46,26 @@
   };
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
-  environment.systemPackages = with pkgs; 
+  environment.systemPackages = with pkgs;
   let
     nix-home = pkgs.callPackage ./nix-home.nix {};
     ninja-kitware = pkgs.callPackage ./ninja-kitware.nix {};
+    neovim-custom = pkgs.neovim.override {
+      withPython = true;
+      withPython3 = true;
+      vimAlias = true;
+    };
     core-packages = [
-      acpi          
+      ack
+      acpi
       atool
       autoconf
       automake
-      bc               
+      bc
       bgs
       binutils
       bmon
+      clang-tools
       cmake
       coreutils
       cryptsetup
@@ -80,19 +87,18 @@
       iotop
       iputils
       libreoffice
-      neovim
+      neovim-custom
       netcat
       nettools
       ninja-kitware
       nmap
-      ack
       psmisc
       rsync
       stdenv
       traceroute
       tree
       unrar
-      unzip 
+      unzip
       wget
       which
       xbindkeys
@@ -121,7 +127,7 @@
       hscolour
       stack
     ];
-    nix-packages = [                   
+    nix-packages = [
       nix-home
       nix-prefetch-git
       nix-repl
@@ -131,7 +137,7 @@
       patchelf
     ];
     python-packages = with python35Packages; [
-      jupyter    
+      jupyter
       matplotlib
       numpy
       python3
@@ -141,9 +147,9 @@
       sympy
     ];
     texlive-packages = [
-      biber                            
+      biber
       (texlive.combine {
-         inherit (texlive) 
+         inherit (texlive)
          collection-basic
          collection-bibtexextra
          collection-binextra
@@ -170,14 +176,14 @@
          collection-xetex;
       })
     ];
-    user-packages = [                   
-      areca         
+    user-packages = [
+      areca
       aspell
       aspellDicts.en
       aspellDicts.it
       aspellDicts.nb
       calibre
-      drive 
+      drive
       evince
       feh
       firefox
@@ -196,7 +202,7 @@
       taskwarrior
       vlc
     ];
-  in 
+  in
     core-packages ++
     crypt-packages ++
     haskell-packages ++
@@ -207,9 +213,9 @@
 
   programs.fish.enable = true;
   programs.tmux.enable = true;
-  
+
   virtualisation.docker.enable = true;
-  
+
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "17.03";
 
