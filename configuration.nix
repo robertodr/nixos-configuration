@@ -213,6 +213,8 @@
     texlive-packages ++
     user-packages;
 
+  environment.variables.EDITOR = "nvim";
+
   programs.fish.enable = true;
   programs.tmux.enable = true;
 

@@ -12,20 +12,20 @@
     description = "Roberto Di Remigio";
     group = "roberto";
     extraGroups = [
-      "adm" 
-      "audio" 
+      "adm"
+      "audio"
       "cdrom"
-      "disk" 
+      "disk"
       "docker"
-      "networkmanager" 
-      "root" 
+      "networkmanager"
+      "root"
       "systemd-journal"
       "users"
       "video"
-      "wheel" 
+      "wheel"
     ];
     home = "/home/roberto";
-    createHome = true; 
+    createHome = true;
     isNormalUser = true;
     uid = 1000;
     shell = "/run/current-system/sw/bin/fish";
