@@ -74,6 +74,7 @@
       direnv
       dmenu
       dunst
+      emacs
       file
       findutils
       fish
