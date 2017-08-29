@@ -81,6 +81,7 @@
       fuse
       gcc
       gitFull
+      gnome3.caribou
       gnumake
       htop
       i3lock
