@@ -74,7 +74,7 @@
       direnv
       dmenu
       dunst
-      emacs
+      emacs25-nox
       file
       findutils
       fish
@@ -150,6 +150,10 @@
       sympy
       yapf
     ];
+    rust-packages = [
+      cargo
+      rustc
+    ];
     texlive-packages = [
       biber
       (texlive.combine {
@@ -212,6 +216,7 @@
     haskell-packages ++
     nix-packages ++
     python-packages ++
+    rust-packages ++
     texlive-packages ++
     user-packages;
 
