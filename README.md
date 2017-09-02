@@ -15,6 +15,8 @@ Configure the base OS:
     # nixos-rebuild switch
     # reboot
 
+Don't forget to add channels!
+
 **WARNING** The configuration in the repo might not work succesfully due to some packages.
 In case that happens, comment them and proceed with installation. You can fix those packages afterwards.
 
