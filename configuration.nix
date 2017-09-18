@@ -191,13 +191,13 @@
       aspellDicts.it
       aspellDicts.nb
       calibre
+      chromium
       drive
       evince
       feh
       firefox
       geeqie
       ghostscript
-      chromium
       imagemagick
       liferea
       meld
@@ -208,6 +208,8 @@
       rambox
       spotify
       taskwarrior
+      transmission
+      transmission_gtk
       vlc
     ];
   in
