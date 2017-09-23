@@ -55,18 +55,17 @@
       withPython3 = true;
       vimAlias = true;
     };
+    watson-ruby = pkgs.callPackage ./watson-ruby.nix {};
     core-packages = [
       ack
       acpi
       atool
-      autoconf
-      automake
       bc
       bgs
       binutils
       bmon
-      clang-tools
-      cmake
+      busybox
+      compton
       coreutils
       cryptsetup
       ctags
@@ -79,20 +78,15 @@
       findutils
       fish
       fuse
-      gcc
-      gitFull
       gnome3.caribou
-      gnumake
+      gnome3.gnome_terminal
       htop
       i3lock
       inotify-tools
-      iotop
       iputils
-      libreoffice
       neovim-custom
       netcat
       nettools
-      ninja-kitware
       nmap
       psmisc
       rsync
@@ -116,6 +110,17 @@
       git-crypt
       gnupg1
       keybase
+    ];
+    development-packages = [
+      autoconf
+      automake
+      clang-tools
+      cmake
+      gcc
+      gitFull
+      gnumake
+      ninja-kitware
+      watson-ruby
     ];
     haskell-packages = with haskellPackages; [
       alex
@@ -199,6 +204,7 @@
       geeqie
       ghostscript
       imagemagick
+      libreoffice
       liferea
       meld
       pass
@@ -215,6 +221,7 @@
   in
     core-packages ++
     crypt-packages ++
+    development-packages ++
     haskell-packages ++
     nix-packages ++
     python-packages ++
