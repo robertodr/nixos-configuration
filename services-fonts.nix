@@ -12,9 +12,13 @@
       xkbOptions = "eurosign:e";
       desktopManager.xterm.enable = false;
 
+      # GDM
+      displayManager.gdm = {
+        enable = true;
+      };
       # SLiM
       displayManager.slim = {
-        enable = true;
+        enable = false;
         defaultUser = "roberto";
         theme = pkgs.fetchurl {
           url = "https://github.com/robertodr/nixos-pulse-demon-slim/archive/v1.0.tar.gz";
@@ -22,7 +26,9 @@
         };
       };
       # GNOME3
-      desktopManager.gnome3.enable = true;
+      desktopManager.gnome3 = {
+        enable = true;
+      };
       # xmonad
       windowManager.xmonad = {
         enable = false;

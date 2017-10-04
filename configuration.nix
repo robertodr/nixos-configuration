@@ -53,6 +53,10 @@
     neovim-custom = pkgs.neovim.override {
       withPython = true;
       withPython3 = true;
+      extraPython3Packages = with python35Packages; [
+        jedi
+        yapf
+      ];
       vimAlias = true;
     };
     watson-ruby = pkgs.callPackage ./watson-ruby.nix {};
@@ -119,6 +123,7 @@
       gcc
       gitFull
       gnumake
+      julia_05
       ninja-kitware
       watson-ruby
     ];
