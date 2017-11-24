@@ -1,10 +1,38 @@
 { config, pkgs, ... }:
 {
-  # Enable CUPS to print documents.
+  hardware = {
+    pulseaudio = {
+      enable = true;
+      package = pkgs.pulseaudioFull;
+    };
+    bluetooth.enable = true;
+  };
+
   services = {
-    #compton.enable = true;
-    printing.enable = true;
-    # Enable the X11 windowing system.
+    avahi = {
+      enable = true;
+      nssmdns = true;
+    };
+
+    printing = {
+      enable = true;
+      drivers = [
+        pkgs.hplip
+      ];
+    };
+
+    #kbfs = {
+    #  enable = true;
+    #};
+
+    #keybase = {
+    #  enable = true;
+    #};
+
+    emacs = {
+      enable = true;
+    };
+
     xserver = {
       enable = true;
       enableCtrlAltBackspace = true;
@@ -12,11 +40,10 @@
       xkbOptions = "eurosign:e";
       desktopManager.xterm.enable = false;
 
-      # GDM
       displayManager.gdm = {
         enable = true;
       };
-      # SLiM
+
       displayManager.slim = {
         enable = false;
         defaultUser = "roberto";
@@ -25,11 +52,11 @@
           sha256 = "09z8y6fac9l9805f2j3q3zbidymx3s7hysx23vb07pc1s4n6874x";
         };
       };
-      # GNOME3
+
       desktopManager.gnome3 = {
         enable = true;
       };
-      # xmonad
+
       windowManager.xmonad = {
         enable = false;
         enableContribAndExtras = true;

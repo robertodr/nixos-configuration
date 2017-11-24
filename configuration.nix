@@ -41,8 +41,34 @@
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
 
-  nixpkgs.config = {
-    allowUnfree = true;
+  nixpkgs = {
+    config = {
+      # Allow proprietary packages
+      allowUnfree = true;
+      # Create an alias for the unstable channel
+      packageOverrides = pkgs: {
+        unstable = import <nixos-unstable> {
+          # pass the nixpkgs config to the unstable alias
+          # to ensure `allowUnfree = true;` is propagated:
+          config = config.nixpkgs.config;
+        };
+      };
+    };
+    overlays = [(self: super: {
+      direnv = super.unstable.direnv;
+      exa = super.unstable.exa;
+      neovim = super.neovim.override {
+        withPython = true;
+        withPython3 = true;
+        extraPython3Packages = with super.python35Packages; [
+          jedi
+          yapf
+        ];
+        vimAlias = true;
+      };
+      spotify = super.unstable.spotify;
+      watson-ruby = super.unstable.watson-ruby;
+    })];
   };
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
@@ -50,16 +76,6 @@
   let
     nix-home = pkgs.callPackage ./nix-home.nix {};
     ninja-kitware = pkgs.callPackage ./ninja-kitware.nix {};
-    neovim-custom = pkgs.neovim.override {
-      withPython = true;
-      withPython3 = true;
-      extraPython3Packages = with python35Packages; [
-        jedi
-        yapf
-      ];
-      vimAlias = true;
-    };
-    watson-ruby = pkgs.callPackage ./watson-ruby.nix {};
     core-packages = [
       ack
       acpi
@@ -88,7 +104,7 @@
       i3lock
       inotify-tools
       iputils
-      neovim-custom
+      neovim
       netcat
       nettools
       nmap
@@ -113,7 +129,9 @@
     crypt-packages = [
       git-crypt
       gnupg1
+      kbfs
       keybase
+      keybase-gui
     ];
     development-packages = [
       autoconf
@@ -123,7 +141,6 @@
       gcc
       gitFull
       gnumake
-      julia_05
       ninja-kitware
       watson-ruby
     ];
@@ -217,6 +234,7 @@
       phototonic
       quasselClient
       rambox
+      shutter
       spotify
       taskwarrior
       transmission
@@ -239,7 +257,10 @@
   programs.fish.enable = true;
   programs.tmux.enable = true;
 
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    enableOnBoot = false;
+  };
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "17.03";
