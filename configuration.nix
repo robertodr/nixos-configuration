@@ -139,7 +139,6 @@
       autoconf
       automake
       clang-tools
-      cmake
       gcc
       gitFull
       gnumake
