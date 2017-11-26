@@ -39,7 +39,9 @@
   };
 
   # Set your time zone.
-  time.timeZone = "Europe/Amsterdam";
+  # Home: "Europe/Amsterdam";
+  # Virginia: "America/New_York";
+  time.timeZone = "America/New_York";
 
   nixpkgs = {
     config = {
@@ -85,7 +87,6 @@
       binutils
       bmon
       busybox
-      compton
       coreutils
       cryptsetup
       ctags
@@ -94,6 +95,7 @@
       dmenu
       dunst
       emacs25-nox
+      exa
       file
       findutils
       fish
@@ -167,19 +169,8 @@
     ];
     python-packages = with python35Packages; [
       jedi
-      jupyter
-      matplotlib
-      numpy
       python3
-      pyyaml
-      scipy
-      sphinx
-      sympy
       yapf
-    ];
-    rust-packages = [
-      cargo
-      rustc
     ];
     texlive-packages = [
       biber
@@ -248,7 +239,6 @@
     haskell-packages ++
     nix-packages ++
     python-packages ++
-    rust-packages ++
     texlive-packages ++
     user-packages;
 
