@@ -29,7 +29,7 @@
     ];
   };
 
-  networking = { 
+  networking = {
     hostName = "minazo";
     networkmanager.enable = true;
   };
@@ -69,16 +69,16 @@
         ];
         vimAlias = true;
       };
-      ninja = super.callPackage ./my-pkgs/ninja-kitware {};
-      nix-home = super.callPackage ./my-pkgs/nix-home {};
+      ninja = super.callPackage ./rdrpkgs/ninja-kitware {};
+      nix-home = super.callPackage ./rdrpkgs/nix-home {};
     })];
   };
 
-  # List packages installed in system profile. 
+  # List packages installed in system profile.
   environment = {
-    systemPackages = with pkgs; 
-    let 
-      core-packages = [                          
+    systemPackages = with pkgs;
+    let
+      core-packages = [
         ack
         acpi
         atool
@@ -199,13 +199,13 @@
         transmission_gtk
         vlc
       ];
-    in 
-      core-packages; 
-      #++ crypt-packages 
-      #++ development-packages 
-      #++ nix-packages 
-      #++ python-packages 
-      #++ texlive-packages 
+    in
+      core-packages;
+      #++ crypt-packages
+      #++ development-packages
+      #++ nix-packages
+      #++ python-packages
+      #++ texlive-packages
       #++ user-packages;
 
     variables.EDITOR = "nvim";
@@ -217,7 +217,7 @@
     fish.enable = true;
     thefuck.enable = true;
     tmux.enable = true;
-  };   
+  };
 
   virtualisation.docker = {
     enable = true;
