@@ -59,6 +59,9 @@
     overlays = [(self: super: {
       direnv = super.unstable.direnv;
       exa = super.unstable.exa;
+      kbfs = super.unstable.kbfs;
+      keybase = super.unstable.keybase;
+      keybase-gui = super.unstable.keybase;
       neovim = super.neovim.override {
         withPython = true;
         withPython3 = true;
