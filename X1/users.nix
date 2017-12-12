@@ -4,7 +4,6 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.roberto = {
     description = "Roberto Di Remigio";
-    group = "roberto";
     extraGroups = [
       "adm"
       "audio"

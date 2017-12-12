@@ -51,25 +51,21 @@
       # Allow proprietary packages
       allowUnfree = true;
       # Create an alias for the unstable channel
-      #packageOverrides = pkgs: {
-      #  unstable = import <nixos-unstable> {
-      #    # pass the nixpkgs config to the unstable alias
-      #    # to ensure `allowUnfree = true;` is propagated:
-      #    config = config.nixpkgs.config;
-      #  };
-      #};
+      packageOverrides = pkgs: {
+        unstable = import <nixos-unstable> {
+          # pass the nixpkgs config to the unstable alias
+          # to ensure `allowUnfree = true;` is propagated:
+          config = config.nixpkgs.config;
+        };
+      };
     };
     overlays = [(self: super: {
       neovim = super.neovim.override {
         withPython = true;
         withPython3 = true;
-        extraPython3Packages = with super.python35Packages; [
-          jedi
-          yapf
-        ];
         vimAlias = true;
       };
-      ninja = super.callPackage ./rdrpkgs/ninja-kitware {};
+      ninja-kitware = super.callPackage ./rdrpkgs/ninja-kitware {};
       nix-home = super.callPackage ./rdrpkgs/nix-home {};
     })];
   };
@@ -79,7 +75,6 @@
     systemPackages = with pkgs;
     let
       core-packages = [
-        ack
         acpi
         atool
         bc
@@ -125,7 +120,8 @@
         gcc
         gitFull
         gnumake
-        ninja
+        ninja-kitware
+        python3
       ];
       nix-packages = [
         nix-home
@@ -135,11 +131,6 @@
         nixpkgs-lint
         nox
         patchelf
-      ];
-      python-packages = with python35Packages; [
-        jedi
-        python3
-        yapf
       ];
       texlive-packages = [
         biber
@@ -178,7 +169,7 @@
         aspellDicts.it
         aspellDicts.nb
         calibre
-	chromium
+        chromium
         drive
         evince
         feh
@@ -200,13 +191,12 @@
         vlc
       ];
     in
-      core-packages;
-      #++ crypt-packages
-      #++ development-packages
-      #++ nix-packages
-      #++ python-packages
-      #++ texlive-packages
-      #++ user-packages;
+      core-packages
+      ++ crypt-packages
+      ++ development-packages
+      ++ nix-packages
+      ++ texlive-packages
+      ++ user-packages;
 
     variables.EDITOR = "nvim";
   };
