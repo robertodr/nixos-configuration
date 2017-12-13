@@ -89,6 +89,7 @@
         file
         findutils
         gnome3.caribou
+        gnome3.gconf
         gnome3.gnome_terminal
         htop
         inotify-tools
@@ -169,6 +170,7 @@
         aspellDicts.it
         aspellDicts.nb
         calibre
+        chrome-gnome-shell
         chromium
         drive
         evince
