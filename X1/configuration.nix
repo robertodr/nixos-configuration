@@ -67,6 +67,7 @@
       };
       ninja-kitware = super.callPackage ./rdrpkgs/ninja-kitware {};
       nix-home = super.callPackage ./rdrpkgs/nix-home {};
+      watson-ruby = super.unstable.watson-ruby;
     })];
   };
 
@@ -122,7 +123,7 @@
         gitFull
         gnumake
         ninja-kitware
-        python3
+        watson-ruby
       ];
       nix-packages = [
         nix-home
@@ -132,6 +133,11 @@
         nixpkgs-lint
         nox
         patchelf
+      ];
+      python-packages = [
+        python3
+        python36Packages.jedi
+        python36Packages.yapf
       ];
       texlive-packages = [
         biber
@@ -197,6 +203,7 @@
       ++ crypt-packages
       ++ development-packages
       ++ nix-packages
+      ++ python-packages
       ++ texlive-packages
       ++ user-packages;
 

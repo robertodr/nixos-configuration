@@ -21,10 +21,7 @@
     };
     kbfs.enable = true;
     keybase.enable = true;
-    emacs = {
-      enable = true;
-      package = pkgs.emacs25-nox;
-    };
+    emacs.enable = true;
     # Enable the X11 windowing system.
     xserver = {
       enable = true;
