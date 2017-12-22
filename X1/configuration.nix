@@ -43,13 +43,19 @@
 
   # Set your time zone.
   # Home: "Europe/Amsterdam";
-  # Virginia: "America/New_York";
-  time.timeZone = "America/New_York";
+  time.timeZone = "Europe/Amsterdam";
+  # Virginia
+  # time.timeZone = "America/New_York";
 
   nixpkgs = {
     config = {
       # Allow proprietary packages
       allowUnfree = true;
+      # Configure Firefox
+      firefox = {
+       enableGnomeExtensions = true;
+       enableGoogleTalkPlugin = true;
+      };
       # Create an alias for the unstable channel
       packageOverrides = pkgs: {
         unstable = import <nixos-unstable> {
@@ -60,6 +66,7 @@
       };
     };
     overlays = [(self: super: {
+      firefox = super.unstable.firefox;
       neovim = super.neovim.override {
         withPython = true;
         withPython3 = true;
