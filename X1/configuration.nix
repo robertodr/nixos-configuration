@@ -51,6 +51,7 @@
     config = {
       # Allow proprietary packages
       allowUnfree = true;
+      allowBroken = false;
       # Configure Firefox
       firefox = {
        enableGnomeExtensions = true;
@@ -214,6 +215,7 @@
       ++ texlive-packages
       ++ user-packages;
 
+    gnome3.excludePackages = with pkgs.gnome3; [ epiphany evolution totem vino yelp accerciser ];
     variables.EDITOR = "nvim";
   };
 
