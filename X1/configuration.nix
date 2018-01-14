@@ -94,6 +94,7 @@
         ctags
         curl
         direnv
+        dpkg
         exa
         file
         findutils
@@ -143,9 +144,9 @@
         patchelf
       ];
       python-packages = [
-        python3
-        python36Packages.jedi
-        python36Packages.yapf
+        python3Full
+        python3Packages.jedi
+        python3Packages.yapf
       ];
       texlive-packages = [
         biber
