@@ -6,26 +6,31 @@
 
 {
   imports =
-    [
+    [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./users.nix
-      ./services-fonts.nix
+      ./services.nix
+      ./fonts.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.grub.device = "/dev/sda";
-  boot.initrd.luks.devices = [
-    {
-      name = "root";
-      device = "/dev/sda3";
-      preLVM = true;
-    }
-  ];
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+      grub.device = "/dev/sda";
+    };
+    initrd.luks.devices = [
+      {
+        name = "root";
+        device = "/dev/sda3";
+        preLVM = true;
+      }
+    ];
+  };
 
   networking = {
-    hostName = "minazo"; # Define your hostname.
+    hostName = "minazo";
     networkmanager.enable = true;
     # Needed to install TeXLive
     extraHosts = "52.3.234.160  lipa.ms.mff.cuni.cz";
@@ -34,7 +39,7 @@
   # Select internationalisation properties.
   i18n = {
     consoleFont = "Lat2-Terminus16";
-    consoleKeyMap = "it";
+    consoleKeyMap = "us";
     defaultLocale = "en_US.UTF-8";
   };
 
@@ -47,6 +52,12 @@
     config = {
       # Allow proprietary packages
       allowUnfree = true;
+      allowBroken = false;
+      # Configure Firefox
+      firefox = {
+       enableGnomeExtensions = true;
+       enableGoogleTalkPlugin = true;
+      };
       # Create an alias for the unstable channel
       packageOverrides = pkgs: {
         unstable = import <nixos-unstable> {
@@ -59,195 +70,168 @@
     overlays = [(self: super: {
       direnv = super.unstable.direnv;
       exa = super.unstable.exa;
+      firefox = super.unstable.firefox;
       kbfs = super.unstable.kbfs;
       keybase = super.unstable.keybase;
       keybase-gui = super.unstable.keybase;
       neovim = super.neovim.override {
         withPython = true;
         withPython3 = true;
-        extraPython3Packages = with super.python35Packages; [
-          jedi
-          yapf
-        ];
         vimAlias = true;
       };
       spotify = super.unstable.spotify;
+      ninja-kitware = super.callPackage ./rdrpkgs/ninja-kitware {};
+      nix-home = super.callPackage ./rdrpkgs/nix-home {};
       watson-ruby = super.unstable.watson-ruby;
     })];
   };
-  # List packages installed in system profile. To search by name, run:
-  # $ nix-env -qaP | grep wget
-  environment.systemPackages = with pkgs;
-  let
-    nix-home = pkgs.callPackage ./nix-home.nix {};
-    ninja-kitware = pkgs.callPackage ./ninja-kitware.nix {};
-    core-packages = [
-      ack
-      acpi
-      atool
-      bc
-      bgs
-      binutils
-      bmon
-      busybox
-      coreutils
-      cryptsetup
-      ctags
-      curl
-      direnv
-      dmenu
-      dunst
-      emacs25-nox
-      exa
-      file
-      findutils
-      fish
-      fuse
-      gnome3.caribou
-      gnome3.gnome_terminal
-      htop
-      i3lock
-      inotify-tools
-      iputils
-      neovim
-      netcat
-      nettools
-      nmap
-      psmisc
-      rsync
-      stdenv
-      traceroute
-      tree
-      unrar
-      unzip
-      wget
-      which
-      xbindkeys
-      xclip
-      xlibs.xinput
-      xlibs.xmodmap
-      xorg.xmessage
-      xorg.xvinfo
-      xsel
-      zip
-    ];
-    crypt-packages = [
-      git-crypt
-      gnupg1
-      kbfs
-      keybase
-      keybase-gui
-    ];
-    development-packages = [
-      autoconf
-      automake
-      clang-tools
-      gcc
-      gitFull
-      gnumake
-      ninja-kitware
-      watson-ruby
-    ];
-    haskell-packages = with haskellPackages; [
-      alex
-      cabal-install
-      cabal2nix
-      ghc
-      ghc-mod
-      happy
-      hindent
-      hlint
-      hscolour
-      stack
-    ];
-    nix-packages = [
-      nix-home
-      nix-prefetch-git
-      nix-repl
-      nixos-container
-      nixpkgs-lint
-      nox
-      patchelf
-    ];
-    python-packages = with python35Packages; [
-      jedi
-      python3
-      yapf
-    ];
-    texlive-packages = [
-      biber
-      (texlive.combine {
-         inherit (texlive)
-         collection-basic
-         collection-bibtexextra
-         collection-binextra
-         collection-fontsextra
-         collection-fontsrecommended
-         collection-fontutils
-         collection-formatsextra
-         collection-genericextra
-         collection-genericrecommended
-         collection-langenglish
-         collection-langeuropean
-         collection-langitalian
-         collection-latex
-         collection-latexextra
-         collection-latexrecommended
-         collection-luatex
-         collection-mathextra
-         collection-metapost
-         collection-pictures
-         collection-plainextra
-         collection-pstricks
-         collection-publishers
-         collection-science
-         collection-xetex;
-      })
-    ];
-    user-packages = [
-      areca
-      aspell
-      aspellDicts.en
-      aspellDicts.it
-      aspellDicts.nb
-      calibre
-      chromium
-      drive
-      evince
-      feh
-      firefox
-      geeqie
-      ghostscript
-      imagemagick
-      libreoffice
-      liferea
-      meld
-      pass
-      pdftk
-      phototonic
-      quasselClient
-      rambox
-      shutter
-      spotify
-      taskwarrior
-      transmission
-      transmission_gtk
-      vlc
-    ];
-  in
-    core-packages ++
-    crypt-packages ++
-    development-packages ++
-    haskell-packages ++
-    nix-packages ++
-    python-packages ++
-    texlive-packages ++
-    user-packages;
 
-  environment.variables.EDITOR = "nvim";
+  # List packages installed in system profile.
+  environment = {
+    systemPackages = with pkgs;
+    let
+      core-packages = [
+        acpi
+        atool
+        bc
+        binutils
+        busybox
+        coreutils
+        cryptsetup
+        ctags
+        curl
+        direnv
+        dpkg
+        exa
+        file
+        findutils
+        gnome3.caribou
+        gnome3.gconf
+        gnome3.gnome_terminal
+        htop
+        inotify-tools
+        iputils
+        neovim
+        psmisc
+        rsync
+        tree
+        unrar
+        unzip
+        wget
+        which
+        xbindkeys
+        xclip
+        xsel
+        zip
+      ];
+      crypt-packages = [
+        git-crypt
+        gnupg1
+        kbfs
+        keybase
+        keybase-gui
+      ];
+      development-packages = [
+        autoconf
+        automake
+        clang-tools
+        gcc
+        gitFull
+        gnumake
+        ninja-kitware
+        watson-ruby
+      ];
+      nix-packages = [
+        nix-home
+        nix-prefetch-git
+        nix-repl
+        nixos-container
+        nixpkgs-lint
+        nox
+        patchelf
+      ];
+      python-packages = [
+        python3Full
+        python3Packages.jedi
+        python3Packages.yapf
+      ];
+      texlive-packages = [
+        biber
+        (texlive.combine {
+           inherit (texlive)
+           collection-basic
+           collection-bibtexextra
+           collection-binextra
+           collection-fontsextra
+           collection-fontsrecommended
+           collection-fontutils
+           collection-formatsextra
+           collection-genericextra
+           collection-genericrecommended
+           collection-langenglish
+           collection-langeuropean
+           collection-langitalian
+           collection-latex
+           collection-latexextra
+           collection-latexrecommended
+           collection-luatex
+           collection-mathextra
+           collection-metapost
+           collection-pictures
+           collection-plainextra
+           collection-pstricks
+           collection-publishers
+           collection-science
+           collection-xetex;
+        })
+      ];
+      user-packages = [
+        areca
+        aspell
+        aspellDicts.en
+        aspellDicts.it
+        aspellDicts.nb
+        calibre
+        chromium
+        drive
+        evince
+        feh
+        firefox
+        ghostscript
+        imagemagick
+        libreoffice
+        liferea
+        meld
+        pass
+        pdftk
+        phototonic
+        rambox
+        shutter
+        spotify
+        taskwarrior
+        transmission
+        transmission_gtk
+        vlc
+      ];
+    in
+      core-packages
+      ++ crypt-packages
+      ++ development-packages
+      ++ nix-packages
+      ++ python-packages
+      ++ texlive-packages
+      ++ user-packages;
 
-  programs.fish.enable = true;
-  programs.tmux.enable = true;
+    gnome3.excludePackages = with pkgs.gnome3; [ epiphany evolution totem vino yelp accerciser ];
+    variables.EDITOR = "nvim";
+  };
+
+  # Some programs need SUID wrappers, can be configured further or are
+  # started in user sessions.
+  programs = {
+    fish.enable = true;
+    tmux.enable = true;
+  };
 
   virtualisation.docker = {
     enable = true;
