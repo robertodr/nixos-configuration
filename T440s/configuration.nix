@@ -32,8 +32,6 @@
   networking = {
     hostName = "minazo";
     networkmanager.enable = true;
-    # Needed to install TeXLive
-    extraHosts = "52.3.234.160  lipa.ms.mff.cuni.cz";
   };
 
   # Select internationalisation properties.
@@ -68,21 +66,13 @@
       };
     };
     overlays = [(self: super: {
-      direnv = super.unstable.direnv;
-      exa = super.unstable.exa;
-      firefox = super.unstable.firefox;
-      kbfs = super.unstable.kbfs;
-      keybase = super.unstable.keybase;
-      keybase-gui = super.unstable.keybase;
       neovim = super.neovim.override {
         withPython = true;
         withPython3 = true;
         vimAlias = true;
       };
-      spotify = super.unstable.spotify;
       ninja-kitware = super.callPackage ./rdrpkgs/ninja-kitware {};
       nix-home = super.callPackage ./rdrpkgs/nix-home {};
-      watson-ruby = super.unstable.watson-ruby;
     })];
   };
 
@@ -166,8 +156,8 @@
            collection-fontsrecommended
            collection-fontutils
            collection-formatsextra
-           collection-genericextra
-           collection-genericrecommended
+           #collection-genericextra
+           #collection-genericrecommended
            collection-langenglish
            collection-langeuropean
            collection-langitalian
@@ -175,13 +165,13 @@
            collection-latexextra
            collection-latexrecommended
            collection-luatex
-           collection-mathextra
+           #collection-mathextra
            collection-metapost
            collection-pictures
-           collection-plainextra
+           #collection-plainextra
            collection-pstricks
            collection-publishers
-           collection-science
+           #collection-science
            collection-xetex;
         })
       ];
@@ -239,6 +229,6 @@
   };
 
   # The NixOS release to be compatible with for stateful data such as databases.
-  system.stateVersion = "17.03";
+  system.stateVersion = "18.03";
 
 }
