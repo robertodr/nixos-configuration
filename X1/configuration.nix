@@ -15,6 +15,11 @@
 
   # Use the systemd-boot EFI boot loader.
   boot = {
+    kernel = {
+      sysctl = {
+        "kernel.perf_event_paranoid" = 0;
+      };
+    };
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
@@ -43,9 +48,9 @@
 
   # Set your time zone.
   # Home: "Europe/Amsterdam";
-  time.timeZone = "Europe/Amsterdam";
+  #time.timeZone = "Europe/Amsterdam";
   # Virginia
-  # time.timeZone = "America/New_York";
+  time.timeZone = "America/New_York";
 
   nixpkgs = {
     config = {
@@ -67,7 +72,6 @@
       };
     };
     overlays = [(self: super: {
-      firefox = super.unstable.firefox;
       neovim = super.neovim.override {
         withPython = true;
         withPython3 = true;
@@ -75,7 +79,6 @@
       };
       ninja-kitware = super.callPackage ./rdrpkgs/ninja-kitware {};
       nix-home = super.callPackage ./rdrpkgs/nix-home {};
-      watson-ruby = super.unstable.watson-ruby;
     })];
   };
 
@@ -94,17 +97,18 @@
         ctags
         curl
         direnv
-        dpkg
         exa
         file
         findutils
         gnome3.caribou
         gnome3.gconf
         gnome3.gnome_terminal
+        gnome3.networkmanagerapplet
         htop
         inotify-tools
         iputils
         neovim
+        networkmanager_openconnect
         psmisc
         rsync
         tree
@@ -128,10 +132,13 @@
         autoconf
         automake
         clang-tools
+        flameGraph
         gcc
         gitFull
         gnumake
+        linuxPackages.perf
         ninja-kitware
+        perf-tools
         watson-ruby
       ];
       nix-packages = [
@@ -150,33 +157,7 @@
       ];
       texlive-packages = [
         biber
-        (texlive.combine {
-           inherit (texlive)
-           collection-basic
-           collection-bibtexextra
-           collection-binextra
-           collection-fontsextra
-           collection-fontsrecommended
-           collection-fontutils
-           collection-formatsextra
-           collection-genericextra
-           collection-genericrecommended
-           collection-langenglish
-           collection-langeuropean
-           collection-langitalian
-           collection-latex
-           collection-latexextra
-           collection-latexrecommended
-           collection-luatex
-           collection-mathextra
-           collection-metapost
-           collection-pictures
-           collection-plainextra
-           collection-pstricks
-           collection-publishers
-           collection-science
-           collection-xetex;
-        })
+        texlive.combined.scheme-full
       ];
       user-packages = [
         areca
@@ -187,18 +168,22 @@
         calibre
         chrome-gnome-shell
         chromium
-        drive
+        dropbox-cli
         evince
         feh
         firefox
         ghostscript
+        gimp
+        gv
         imagemagick
+        inkscape
         libreoffice
         liferea
         meld
         pass
         pdftk
         phototonic
+        pymol
         rambox
         shutter
         spotify
@@ -206,6 +191,7 @@
         transmission
         transmission_gtk
         vlc
+        zathura
       ];
     in
       core-packages
@@ -224,7 +210,6 @@
   # started in user sessions.
   programs = {
     fish.enable = true;
-    thefuck.enable = true;
     tmux.enable = true;
   };
 
@@ -237,5 +222,5 @@
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
-  system.stateVersion = "17.09"; # Did you read the comment?
+  system.stateVersion = "18.03"; # Did you read the comment?
 }
