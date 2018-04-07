@@ -72,6 +72,7 @@
       };
     };
     overlays = [(self: super: {
+      firefox = super.unstable.firefox;
       neovim = super.neovim.override {
         withPython = true;
         withPython3 = true;
@@ -157,7 +158,33 @@
       ];
       texlive-packages = [
         biber
-        texlive.combined.scheme-full
+        (texlive.combine {
+           inherit (texlive)
+           collection-basic
+           collection-bibtexextra
+           collection-binextra
+           collection-context
+           collection-fontsextra
+           collection-fontsrecommended
+           collection-formatsextra
+           collection-fontutils
+           collection-langenglish
+           collection-langeuropean
+           collection-langfrench
+           collection-langitalian
+           collection-langother
+           collection-latex
+           collection-latexextra
+           collection-latexrecommended
+           collection-luatex
+           collection-mathscience
+           collection-metapost
+           collection-pictures
+           collection-plaingeneric
+           collection-pstricks
+           collection-publishers
+           collection-xetex;
+        })
       ];
       user-packages = [
         areca
@@ -191,7 +218,6 @@
         transmission
         transmission_gtk
         vlc
-        zathura
       ];
     in
       core-packages
