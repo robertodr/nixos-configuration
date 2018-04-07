@@ -119,6 +119,7 @@
         which
         xbindkeys
         xclip
+        xdg_utils
         xsel
         zip
       ];
@@ -166,8 +167,8 @@
            collection-context
            collection-fontsextra
            collection-fontsrecommended
-           collection-formatsextra
            collection-fontutils
+           collection-formatsextra
            collection-langenglish
            collection-langeuropean
            collection-langfrench
