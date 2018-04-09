@@ -136,11 +136,15 @@
         clang-tools
         flameGraph
         gcc
+        git-lfs
         gitFull
+        global
         gnumake
         linuxPackages.perf
+        lua52Packages.luacheck
         ninja-kitware
         perf-tools
+        shellcheck
         watson-ruby
       ];
       nix-packages = [
@@ -153,8 +157,12 @@
         patchelf
       ];
       python-packages = [
+        autoflake
+        pipenv
         python3Full
+        python3Packages.isort
         python3Packages.jedi
+        python3Packages.pytest
         python3Packages.yapf
       ];
       texlive-packages = [
