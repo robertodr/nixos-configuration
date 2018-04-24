@@ -19,8 +19,8 @@
         pkgs.hplip
       ];
     };
-    kbfs.enable = true;
-    keybase.enable = true;
+    #kbfs.enable = true;
+    #keybase.enable = true;
     emacs.enable = true;
     # Enable the X11 windowing system.
     xserver = {
@@ -54,6 +54,5 @@
         xterm.enable = false;
       };
     };
-    nixosManual.showManual = true;
   };
 }

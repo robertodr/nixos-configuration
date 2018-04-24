@@ -89,6 +89,7 @@
     let
       core-packages = [
         acpi
+        ag
         atool
         bc
         binutils
@@ -126,9 +127,7 @@
       crypt-packages = [
         git-crypt
         gnupg1
-        kbfs
-        keybase
-        keybase-gui
+        #keybase-gui
       ];
       development-packages = [
         autoconf
@@ -162,6 +161,7 @@
         python3Full
         python3Packages.isort
         python3Packages.jedi
+        python3Packages.pygments
         python3Packages.pytest
         python3Packages.yapf
       ];
@@ -216,6 +216,7 @@
         libreoffice
         liferea
         meld
+        pandoc
         pass
         pdftk
         phototonic
@@ -227,6 +228,8 @@
         transmission
         transmission_gtk
         vlc
+        xournal
+        zathura
       ];
     in
       core-packages
