@@ -102,6 +102,7 @@
         exa
         file
         findutils
+        freerdp
         gnome3.caribou
         gnome3.gconf
         gnome3.gnome_terminal
@@ -166,6 +167,7 @@
         python3Packages.yapf
       ];
       texlive-packages = [
+        asymptote
         biber
         (texlive.combine {
            inherit (texlive)
@@ -221,7 +223,6 @@
         pdftk
         phototonic
         pymol
-        rambox
         shutter
         spotify
         taskwarrior
