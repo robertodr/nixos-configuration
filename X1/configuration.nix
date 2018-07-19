@@ -48,9 +48,9 @@
 
   # Set your time zone.
   # Home: "Europe/Amsterdam";
-  #time.timeZone = "Europe/Amsterdam";
+  time.timeZone = "Europe/Amsterdam";
   # Virginia
-  time.timeZone = "America/New_York";
+  #time.timeZone = "America/New_York";
 
   nixpkgs = {
     config = {
@@ -78,7 +78,9 @@
         withPython3 = true;
         vimAlias = true;
       };
-      ninja-kitware = super.callPackage ./rdrpkgs/ninja-kitware {};
+      ninja-kitware = super.callPackage ./rdrpkgs/ninja-kitware {
+        python = super.python3;
+      };
       nix-home = super.callPackage ./rdrpkgs/nix-home {};
     })];
   };
@@ -114,6 +116,7 @@
         networkmanager_openconnect
         psmisc
         rsync
+        tldr
         tree
         unrar
         unzip
@@ -141,7 +144,7 @@
         global
         gnumake
         linuxPackages.perf
-        lua52Packages.luacheck
+        luaPackages.luacheck
         ninja-kitware
         perf-tools
         shellcheck

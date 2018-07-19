@@ -29,24 +29,34 @@
       layout = "us";
       xkbOptions = "eurosign:e";
       # Enable touchpad support.
-      libinput.enable = true;
+      libinput = {
+        enable = true;
+        naturalScrolling = true;
+        scrollMethod = "twofinger";
+      };
       # Display manager
       displayManager = {
-        # slim = {
-        #   enable = true;
-        #   defaultUser = "roberto";
-        #   autoLogin = false;
-        #   theme = pkgs.fetchurl {
-        #     url = "https://github.com/robertodr/nixos-pulse-demon-slim/archive/v1.0.tar.gz";
-        #     sha256 = "09z8y6fac9l9805f2j3q3zbidymx3s7hysx23vb07pc1s4n6874x";
-        #   };
-        # };
+        #slim = {
+        #  enable = true;
+        #  defaultUser = "roberto";
+        #  autoLogin = false;
+        #  theme = pkgs.fetchurl {
+        #    url = "https://github.com/robertodr/nixos-pulse-demon-slim/archive/v1.0.tar.gz";
+        #    sha256 = "09z8y6fac9l9805f2j3q3zbidymx3s7hysx23vb07pc1s4n6874x";
+        #  };
+        #};
         gdm.enable = true;
       };
       # Window manager
       #windowManager = {
       #  default = "awesome";
-      #  awesome.enable = true;
+      #  awesome = {
+      #    enable = true;
+      #    package = pkgs.awesome;
+      #    luaModules = [
+      #      pkgs.luaPackages.vicious
+      #    ];
+      #  };
       #};
       # Desktop manager
       desktopManager = {
