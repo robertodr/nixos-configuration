@@ -4,8 +4,15 @@
     pulseaudio = {
       enable = true;
       package = pkgs.pulseaudioFull;
+      extraConfig = "load-module module-switch-on-connect";
     };
-    bluetooth.enable = true;
+    bluetooth = {
+      enable = true;
+      extraConfig = "
+        [General]
+        Enable=Source,Sink,Media,Socket
+      ";
+    };
   };
 
   services = {
@@ -13,15 +20,18 @@
       enable = true;
       nssmdns = true;
     };
+
     printing = {
       enable = true;
       drivers = [
         pkgs.hplip
       ];
     };
-    #kbfs.enable = true;
-    #keybase.enable = true;
-    emacs.enable = true;
+
+    # TODO Probably needs to be changed with 18.09
+    kbfs.enable = true;
+    keybase.enable = true;
+
     # Enable the X11 windowing system.
     xserver = {
       enable = true;
@@ -31,38 +41,45 @@
       # Enable touchpad support.
       libinput = {
         enable = true;
-        naturalScrolling = true;
-        scrollMethod = "twofinger";
       };
       # Display manager
       displayManager = {
-        #slim = {
-        #  enable = true;
-        #  defaultUser = "roberto";
-        #  autoLogin = false;
-        #  theme = pkgs.fetchurl {
-        #    url = "https://github.com/robertodr/nixos-pulse-demon-slim/archive/v1.0.tar.gz";
-        #    sha256 = "09z8y6fac9l9805f2j3q3zbidymx3s7hysx23vb07pc1s4n6874x";
-        #  };
-        #};
-        gdm.enable = true;
+        slim = {
+          enable = true;
+          defaultUser = "roberto";
+          autoLogin = false;
+          theme = pkgs.fetchurl {
+            url = "https://github.com/robertodr/nixos-pulse-demon-slim/archive/v1.0.tar.gz";
+            sha256 = "09z8y6fac9l9805f2j3q3zbidymx3s7hysx23vb07pc1s4n6874x";
+          };
+        };
+        #gdm.enable = true;
       };
       # Window manager
-      #windowManager = {
-      #  default = "awesome";
-      #  awesome = {
-      #    enable = true;
-      #    package = pkgs.awesome;
-      #    luaModules = [
-      #      pkgs.luaPackages.vicious
-      #    ];
-      #  };
-      #};
-      # Desktop manager
-      desktopManager = {
-        gnome3.enable = true;
-        xterm.enable = false;
+      windowManager = {
+        default = "awesome";
+        awesome = {
+          enable = true;
+          package = pkgs.awesome;
+        };
       };
+      # Desktop manager
+      #desktopManager = {
+      #  gnome3.enable = true;
+      #  xterm.enable = false;
+      #};
     };
+
+    redshift = {
+      enable = true;
+      provider = "geoclue2";
+    };
+
+    # Needed for U2F auth
+    pcscd.enable = true;
+    udev.packages = [
+      pkgs.libu2f-host
+      pkgs.yubikey-personalization
+    ];
   };
 }

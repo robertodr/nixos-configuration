@@ -11,6 +11,7 @@
       ./users.nix
       ./services.nix
       ./fonts.nix
+      ./multi-glibc-locale-paths.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -48,9 +49,9 @@
 
   # Set your time zone.
   # Home: "Europe/Amsterdam";
-  time.timeZone = "Europe/Amsterdam";
+  #time.timeZone = "Europe/Amsterdam";
   # Virginia
-  #time.timeZone = "America/New_York";
+  time.timeZone = "America/New_York";
 
   nixpkgs = {
     config = {
@@ -59,19 +60,20 @@
       allowBroken = false;
       # Configure Firefox
       firefox = {
-       enableGnomeExtensions = true;
        enableGoogleTalkPlugin = true;
       };
       # Create an alias for the unstable channel
       packageOverrides = pkgs: {
         unstable = import <nixos-unstable> {
-          # pass the nixpkgs config to the unstable alias
+          # Pass the nixpkgs config to the unstable alias
           # to ensure `allowUnfree = true;` is propagated:
           config = config.nixpkgs.config;
         };
       };
     };
     overlays = [(self: super: {
+      emacs = super.unstable.emacs;
+      kitty = super.unstable.kitty;
       firefox = super.unstable.firefox;
       neovim = super.neovim.override {
         withPython = true;
@@ -82,6 +84,9 @@
         python = super.python3;
       };
       nix-home = super.callPackage ./rdrpkgs/nix-home {};
+      openvpn = super.openvpn.override {
+        pkcs11Support = true;
+      };
     })];
   };
 
@@ -101,21 +106,25 @@
         ctags
         curl
         direnv
+        emacs
         exa
         file
         findutils
         freerdp
-        gnome3.caribou
-        gnome3.gconf
-        gnome3.gnome_terminal
-        gnome3.networkmanagerapplet
         htop
         inotify-tools
         iputils
+        kitty
+        ncurses.dev
         neovim
-        networkmanager_openconnect
+        networkmanager
+        nnn
+        opensc
+        openvpn
+        pcsctools
         psmisc
         rsync
+        slock
         tldr
         tree
         unrar
@@ -131,7 +140,11 @@
       crypt-packages = [
         git-crypt
         gnupg1
-        #keybase-gui
+        # Needed for U2F auth
+        libu2f-host
+        yubikey-personalization
+        # TODO This package should be in 18.09
+        #keybase
       ];
       development-packages = [
         autoconf
@@ -144,11 +157,15 @@
         global
         gnumake
         linuxPackages.perf
-        luaPackages.luacheck
+        lua
+        # FIXME Commented because package is broken
+        #luaPackages.luacheck
         ninja-kitware
         perf-tools
         shellcheck
-        watson-ruby
+      ];
+      haskell-packages = [
+        stack
       ];
       nix-packages = [
         nix-home
@@ -207,7 +224,6 @@
         aspellDicts.it
         aspellDicts.nb
         calibre
-        chrome-gnome-shell
         chromium
         dropbox-cli
         evince
@@ -239,13 +255,13 @@
       core-packages
       ++ crypt-packages
       ++ development-packages
+      ++ haskell-packages
       ++ nix-packages
       ++ python-packages
       ++ texlive-packages
       ++ user-packages;
 
-    gnome3.excludePackages = with pkgs.gnome3; [ epiphany evolution totem vino yelp accerciser ];
-    variables.EDITOR = "nvim";
+    variables.EDITOR = "emacs";
   };
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -253,7 +269,14 @@
   programs = {
     fish.enable = true;
     tmux.enable = true;
+    ssh.startAgent = true;
   };
+
+  # Needed to avoid OOM error from slock
+  # see also: https://github.com/NixOS/nixpkgs/issues/9656
+  security.wrappers = {
+    slock.source = "${pkgs.slock.out}/bin/slock";
+   };
 
   virtualisation.docker = {
     enable = true;
