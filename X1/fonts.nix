@@ -20,8 +20,13 @@
       monoid
       source-code-pro
       terminus_font
+      tex-gyre-bonum-math
+      tex-gyre-pagella-math
+      tex-gyre-schola-math
+      tex-gyre-termes-math
       ubuntu_font_family  # Ubuntu fonts
       unifont             # some international languages
+      xits-math
     ];
   };
 }

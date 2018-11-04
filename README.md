@@ -15,9 +15,13 @@ Configure the base OS:
     # nixos-rebuild switch
     # reboot
 
-Don't forget to add channels!
+Don't forget to add channels (using `sudo` in case)
 
-**WARNING** The configuration in the repo might not work succesfully due to some packages.
+    # nix-channel --add https://nixos.org/channels/nixos-18.03 nixos
+    # nix-channel --add https://nixos.org/channels/nixos-unstable nixos-unstable
+    # nix-channel --add https://github.com/NixOS/nixos-hardware/archive/master.tar.gz nixos-hardware
+
+**WARNING** The configuration in the repo might not _always_ work successfully due to some packages.
 In case that happens, comment them and proceed with installation. You can fix those packages afterwards.
 
 Configure the user account:

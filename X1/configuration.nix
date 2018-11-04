@@ -5,8 +5,8 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
+  imports = [
+      <nixos-hardware/lenovo/thinkpad/x1>
       ./hardware-configuration.nix
       ./users.nix
       ./services.nix
@@ -72,21 +72,28 @@
       };
     };
     overlays = [(self: super: {
+      bat = super.unstable.bat;
+      borgbackup = super.unstable.borgbackup;
       emacs = super.unstable.emacs;
-      kitty = super.unstable.kitty;
+      # FIXME See https://github.com/NixOS/nixpkgs/pull/48020
+      exa = super.unstable.exa;
       firefox = super.unstable.firefox;
+      kbfs = super.unstable.kbfs;
+      keybase = super.unstable.keybase;
+      keybase-gui = super.unstable.keybase-gui;
+      kitty = super.unstable.kitty;
+      #lua5_3 = super.unstable.lua5_3;
+      #lua53Packages = super.unstable.lua53Packages;
       neovim = super.neovim.override {
         withPython = true;
         withPython3 = true;
         vimAlias = true;
       };
-      ninja-kitware = super.callPackage ./rdrpkgs/ninja-kitware {
-        python = super.python3;
-      };
-      nix-home = super.callPackage ./rdrpkgs/nix-home {};
+      nix-home = super.callPackage ./pkgs/nix-home {};
       openvpn = super.openvpn.override {
         pkcs11Support = true;
       };
+      wavebox = super.unstable.wavebox;
     })];
   };
 
@@ -98,14 +105,15 @@
         acpi
         ag
         atool
+        bat
         bc
         binutils
-        busybox
         coreutils
         cryptsetup
-        ctags
         curl
         direnv
+        dmidecode
+        editorconfig-core-c
         emacs
         exa
         file
@@ -121,14 +129,15 @@
         nnn
         opensc
         openvpn
+        pciutils
         pcsctools
         psmisc
         rsync
-        slock
         tldr
         tree
         unrar
         unzip
+        usbutils
         wget
         which
         xbindkeys
@@ -140,37 +149,46 @@
       crypt-packages = [
         git-crypt
         gnupg1
-        # Needed for U2F auth
-        libu2f-host
-        yubikey-personalization
-        # TODO This package should be in 18.09
-        #keybase
+        kbfs
+        keybase
+        keybase-gui
       ];
       development-packages = [
         autoconf
         automake
         clang-tools
+        ctags
         flameGraph
         gcc
         git-lfs
-        gitFull
+        gitAndTools.gitFull
+        gitAndTools.hub
         global
         gnumake
         linuxPackages.perf
-        lua
-        # FIXME Commented because package is broken
-        #luaPackages.luacheck
-        ninja-kitware
         perf-tools
+        pijul
+        rtags
         shellcheck
       ];
       haskell-packages = [
+        ghc
+        haskellPackages.apply-refact
+        haskellPackages.hasktags
+        haskellPackages.hindent
+        haskellPackages.hlint
+        haskellPackages.hoogle
+        haskellPackages.stylish-haskell
         stack
+      ];
+      lua-packages = [
+        lua
+        luaPackages.lgi
+        luaPackages.luacheck
       ];
       nix-packages = [
         nix-home
         nix-prefetch-git
-        nix-repl
         nixos-container
         nixpkgs-lint
         nox
@@ -180,6 +198,7 @@
         autoflake
         pipenv
         python3Full
+        python3Packages.importmagic
         python3Packages.isort
         python3Packages.jedi
         python3Packages.pygments
@@ -218,14 +237,12 @@
         })
       ];
       user-packages = [
-        areca
         aspell
         aspellDicts.en
         aspellDicts.it
         aspellDicts.nb
-        calibre
+        borgbackup
         chromium
-        dropbox-cli
         evince
         feh
         firefox
@@ -240,27 +257,24 @@
         pandoc
         pass
         pdftk
-        phototonic
         pymol
         shutter
         spotify
-        taskwarrior
-        transmission
-        transmission_gtk
         vlc
-        xournal
-        zathura
+        wavebox
       ];
     in
       core-packages
       ++ crypt-packages
       ++ development-packages
       ++ haskell-packages
+      ++ lua-packages
       ++ nix-packages
       ++ python-packages
       ++ texlive-packages
       ++ user-packages;
 
+    gnome3.excludePackages = with pkgs.gnome3; [ epiphany evolution totem vino yelp accerciser ];
     variables.EDITOR = "emacs";
   };
 
@@ -268,15 +282,9 @@
   # started in user sessions.
   programs = {
     fish.enable = true;
+    #slock.enable = true;
     tmux.enable = true;
-    ssh.startAgent = true;
   };
-
-  # Needed to avoid OOM error from slock
-  # see also: https://github.com/NixOS/nixpkgs/issues/9656
-  security.wrappers = {
-    slock.source = "${pkgs.slock.out}/bin/slock";
-   };
 
   virtualisation.docker = {
     enable = true;
@@ -287,5 +295,5 @@
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
-  system.stateVersion = "18.03"; # Did you read the comment?
+  system.stateVersion = "18.09"; # Did you read the comment?
 }
