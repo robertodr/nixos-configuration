@@ -256,6 +256,7 @@
         meld
         pandoc
         pass
+        pdf2svg
         pdftk
         pymol
         shutter
