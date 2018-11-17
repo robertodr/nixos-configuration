@@ -78,6 +78,7 @@
       # FIXME See https://github.com/NixOS/nixpkgs/pull/48020
       exa = super.unstable.exa;
       firefox = super.unstable.firefox;
+      include-what-you-use = super.unstable.include-what-you-use;
       kbfs = super.unstable.kbfs;
       keybase = super.unstable.keybase;
       keybase-gui = super.unstable.keybase-gui;
@@ -156,6 +157,7 @@
       development-packages = [
         autoconf
         automake
+        cachix
         clang-tools
         ctags
         flameGraph
@@ -165,11 +167,14 @@
         gitAndTools.hub
         global
         gnumake
+        include-what-you-use
         linuxPackages.perf
+        llvmPackages.clang-unwrapped.python # Needed for run-clang-tidy.py
         perf-tools
         pijul
         rtags
         shellcheck
+        unifdef
       ];
       haskell-packages = [
         ghc
@@ -198,6 +203,7 @@
         autoflake
         pipenv
         python3Full
+        python3Packages.epc
         python3Packages.importmagic
         python3Packages.isort
         python3Packages.jedi
@@ -284,6 +290,7 @@
   programs = {
     fish.enable = true;
     #slock.enable = true;
+    singularity.enable = true;
     tmux.enable = true;
   };
 
