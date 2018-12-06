@@ -6,13 +6,13 @@
 
 {
   imports = [
-      <nixos-hardware/lenovo/thinkpad/x1>
-      ./hardware-configuration.nix
-      ./users.nix
-      ./services.nix
-      ./fonts.nix
-      ./multi-glibc-locale-paths.nix
-    ];
+    <nixos-hardware/lenovo/thinkpad/x1>
+    ./hardware-configuration.nix
+    ./users.nix
+    ./services.nix
+    ./fonts.nix
+    ./multi-glibc-locale-paths.nix
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot = {
@@ -203,6 +203,7 @@
         autoflake
         pipenv
         python3Full
+        python3Packages.cookiecutter
         python3Packages.epc
         python3Packages.importmagic
         python3Packages.isort
