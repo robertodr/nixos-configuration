@@ -20,6 +20,8 @@ Don't forget to add channels (using `sudo` in case)
     # nix-channel --add https://nixos.org/channels/nixos-18.03 nixos
     # nix-channel --add https://nixos.org/channels/nixos-unstable nixos-unstable
     # nix-channel --add https://github.com/NixOS/nixos-hardware/archive/master.tar.gz nixos-hardware
+    # nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz home-manager
+    # nix-channel --add https://github.com/nmattia/niv/archive/master.tar.gz niv
 
 **WARNING** The configuration in the repo might not _always_ work successfully due to some packages.
 In case that happens, comment them and proceed with installation. You can fix those packages afterwards.

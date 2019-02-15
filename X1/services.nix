@@ -16,9 +16,9 @@
   };
 
   services = {
-    #avahi = {
+    #emacs = {
+    #  defaultEditor = true;
     #  enable = true;
-    #  nssmdns = true;
     #};
 
     printing = {

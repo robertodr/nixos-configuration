@@ -75,9 +75,13 @@
       bat = super.unstable.bat;
       borgbackup = super.unstable.borgbackup;
       emacs = super.unstable.emacs;
-      # FIXME See https://github.com/NixOS/nixpkgs/pull/48020
-      exa = super.unstable.exa;
       firefox = super.unstable.firefox;
+      git-latexdiff = super.unstable.git-latexdiff;
+      haskellPackages = super.haskellPackages.override {
+        overrides = hs-self: hs-super: with self.haskell.lib; {
+          pandoc-crossref = dontCheck hs-super.pandoc-crossref;
+        };
+      };
       include-what-you-use = super.unstable.include-what-you-use;
       kbfs = super.unstable.kbfs;
       keybase = super.unstable.keybase;
@@ -91,9 +95,8 @@
         vimAlias = true;
       };
       nix-home = super.callPackage ./pkgs/nix-home {};
-      openvpn = super.openvpn.override {
-        pkcs11Support = true;
-      };
+      pandoc = super.unstable.haskellPackages.pandoc;
+      pijul = super.unstable.pijul;
       wavebox = super.unstable.wavebox;
     })];
   };
@@ -108,6 +111,7 @@
         atool
         bat
         bc
+        bind
         binutils
         coreutils
         cryptsetup
@@ -132,6 +136,7 @@
         openvpn
         pciutils
         pcsctools
+        pdf-redact-tools
         psmisc
         rsync
         tldr
@@ -153,6 +158,7 @@
         kbfs
         keybase
         keybase-gui
+        pass
       ];
       development-packages = [
         autoconf
@@ -161,22 +167,25 @@
         clang-tools
         ctags
         flameGraph
-        gcc
         git-lfs
         gitAndTools.gitFull
         gitAndTools.hub
         global
         gnumake
         include-what-you-use
+        libpng
         linuxPackages.perf
         llvmPackages.clang-unwrapped.python # Needed for run-clang-tidy.py
         perf-tools
         pijul
+        poppler
         rtags
         shellcheck
         unifdef
       ];
       haskell-packages = [
+        cabal-install
+        cabal2nix
         ghc
         haskellPackages.apply-refact
         haskellPackages.hasktags
@@ -199,14 +208,19 @@
         nox
         patchelf
       ];
+      pandoc-packages = [
+        pandoc
+        haskellPackages.pandoc-crossref
+        haskellPackages.pandoc-citeproc
+      ];
       python-packages = [
         autoflake
-        pipenv
         python3Full
         python3Packages.cookiecutter
         python3Packages.epc
         python3Packages.importmagic
         python3Packages.isort
+        python3Packages.python-language-server
         python3Packages.jedi
         python3Packages.pygments
         python3Packages.pytest
@@ -215,6 +229,7 @@
       texlive-packages = [
         asymptote
         biber
+        git-latexdiff
         (texlive.combine {
            inherit (texlive)
            collection-basic
@@ -261,10 +276,9 @@
         libreoffice
         liferea
         meld
-        pandoc
-        pass
         pdf2svg
         pdftk
+        potrace
         pymol
         shutter
         spotify
@@ -278,19 +292,19 @@
       ++ haskell-packages
       ++ lua-packages
       ++ nix-packages
+      ++ pandoc-packages
       ++ python-packages
       ++ texlive-packages
       ++ user-packages;
 
     gnome3.excludePackages = with pkgs.gnome3; [ epiphany evolution totem vino yelp accerciser ];
-    variables.EDITOR = "emacs";
+    variables.EDITOR = "emacs -nw";
   };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   programs = {
     fish.enable = true;
-    #slock.enable = true;
     singularity.enable = true;
     tmux.enable = true;
   };
