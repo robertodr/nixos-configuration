@@ -167,6 +167,7 @@
         clang-tools
         ctags
         flameGraph
+        gcc
         git-lfs
         gitAndTools.gitFull
         gitAndTools.hub
@@ -271,11 +272,13 @@
         ghostscript
         gimp
         gv
+        home-manager
         imagemagick
         inkscape
         libreoffice
         liferea
         meld
+        #niv
         pdf2svg
         pdftk
         potrace
