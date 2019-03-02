@@ -1,11 +1,16 @@
 { config, pkgs, ... }:
+
 {
   hardware = {
+    # Coming in 19.03, see also configuration.nix
+    #bolt.enable = true;
+
     pulseaudio = {
       enable = true;
       package = pkgs.pulseaudioFull;
       extraConfig = "load-module module-switch-on-connect";
     };
+
     bluetooth = {
       enable = true;
       extraConfig = "
