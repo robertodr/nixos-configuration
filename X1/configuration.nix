@@ -90,6 +90,7 @@ in
         };
       };
       overlays = [(self: super: {
+        git-along = super.callPackage ./pkgs/git-along {};
         haskellPackages = super.haskellPackages.override {
           overrides = hs-self: hs-super: with self.haskell.lib; {
             pandoc-crossref = dontCheck hs-super.pandoc-crossref;
@@ -171,6 +172,7 @@ in
           clang-tools
           flameGraph
           gcc
+          git-along
           git-lfs
           gitAndTools.gitFull
           gitAndTools.hub
