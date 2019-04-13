@@ -19,8 +19,6 @@ in
   {
     imports = [
       <nixos-hardware/lenovo/thinkpad/x1>
-      # This is going to be part of 19.03
-      <nixos-unstable/nixos/modules/services/hardware/bolt.nix>
       ./hardware-configuration.nix
       ./users.nix
       ./services.nix
@@ -73,6 +71,7 @@ in
           bat = unstable.bat;
           borgbackup = unstable.borgbackup;
           ccls = unstable.ccls;
+          direnv = unstable.direnv;
           emacs = unstable.emacs;
           firefox = unstable.firefox;
           git-latexdiff = unstable.git-latexdiff;
@@ -181,7 +180,6 @@ in
           include-what-you-use
           libpng
           linuxPackages.perf
-          llvmPackages.clang-unwrapped.python # Needed for run-clang-tidy.py
           perf-tools
           pijul
           poppler
@@ -221,15 +219,7 @@ in
         python-packages = [
           autoflake
           python3Full
-          python3Packages.cookiecutter
-          python3Packages.epc
-          python3Packages.importmagic
-          python3Packages.isort
-          python3Packages.python-language-server
-          python3Packages.jedi
           python3Packages.pygments
-          python3Packages.pytest
-          python3Packages.yapf
         ];
         texlive-packages = [
           asymptote
@@ -285,7 +275,6 @@ in
           pdf2svg
           pdftk
           potrace
-          pymol
           shutter
           spotify
           vlc
@@ -324,5 +313,5 @@ in
     # compatible, in order to avoid breaking some software such as database
     # servers. You should change this only after NixOS release notes say you
     # should.
-    system.stateVersion = "18.09"; # Did you read the comment?
+    system.stateVersion = "19.03"; # Did you read the comment?
   }

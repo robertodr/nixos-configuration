@@ -2,9 +2,6 @@
 
 {
   hardware = {
-    # Coming in 19.03, see also configuration.nix
-    #bolt.enable = true;
-
     pulseaudio = {
       enable = true;
       package = pkgs.pulseaudioFull;
@@ -21,10 +18,9 @@
   };
 
   services = {
-    #emacs = {
-    #  defaultEditor = true;
-    #  enable = true;
-    #};
+    hardware = {
+      bolt.enable = true;
+    };
 
     printing = {
       enable = true;
@@ -53,19 +49,19 @@
         scrollMethod = "twofinger";
         clickMethod = "clickfinger";
       };
-      # Display manager
-      displayManager = {
-        gdm.enable = true;
-      #  lightdm = {
-      #    enable = true;
-      #    autoLogin.enable = false;
-      #    background = "/home/roberto/.background-image";
-      #  };
-      };
       # Desktop manager
       desktopManager = {
         gnome3.enable = true;
         xterm.enable = false;
+      };
+      # Display manager
+      displayManager = {
+        gdm.enable = true;
+        #lightdm = {
+        #  enable = true;
+        #  autoLogin.enable = false;
+        #  background = "/home/roberto/.background-image";
+        #};
       };
       # Window manager
       #windowManager = {
