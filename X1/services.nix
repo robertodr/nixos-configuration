@@ -57,23 +57,13 @@
       # Display manager
       displayManager = {
         gdm.enable = true;
+        gdm.wayland = true;
         #lightdm = {
         #  enable = true;
         #  autoLogin.enable = false;
         #  background = "/home/roberto/.background-image";
         #};
       };
-      # Window manager
-      #windowManager = {
-      #  default = "awesome";
-      #  awesome = {
-      #    enable = true;
-      #    package = pkgs.awesome;
-      #    luaModules = with pkgs.luaPackages; [
-      #      lgi
-      #    ];
-      #  };
-      #};
     };
 
     # Needed for U2F auth

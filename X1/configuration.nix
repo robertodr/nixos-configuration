@@ -64,37 +64,27 @@ in
     #time.timeZone = "Europe/Amsterdam";
     # Virginia
     time.timeZone = "America/New_York";
+    # Colorado
+    #time.timeZone = "America/Denver";
 
     nixpkgs = {
       config = baseConfig // {
         packageOverrides = pkgs: {
-          bat = unstable.bat;
-          borgbackup = unstable.borgbackup;
           ccls = unstable.ccls;
           direnv = unstable.direnv;
           emacs = unstable.emacs;
           firefox = unstable.firefox;
-          git-latexdiff = unstable.git-latexdiff;
-          include-what-you-use = unstable.include-what-you-use;
+          gifski = unstable.gifski;
           kbfs = unstable.kbfs;
           keybase = unstable.keybase;
           keybase-gui = unstable.keybase-gui;
-          kitty = unstable.kitty;
-          #lua5_3 = unstable.lua5_3;
-          #lua53Packages = unstable.lua53Packages;
-          pandoc = unstable.haskellPackages.pandoc;
+          peek = unstable.peek;
           pijul = unstable.pijul;
-          stack = unstable.haskellPackages.stack;
           wavebox = unstable.wavebox;
         };
       };
       overlays = [(self: super: {
         git-along = super.callPackage ./pkgs/git-along {};
-        haskellPackages = super.haskellPackages.override {
-          overrides = hs-self: hs-super: with self.haskell.lib; {
-            pandoc-crossref = dontCheck hs-super.pandoc-crossref;
-          };
-        };
         neovim = super.neovim.override {
           withPython = true;
           withPython3 = true;
@@ -134,7 +124,9 @@ in
           ncurses.dev
           neovim
           networkmanager
+          networkmanager-openconnect
           nnn
+          openconnect
           opensc
           openvpn
           pciutils
@@ -168,9 +160,7 @@ in
           automake
           cachix
           ccls
-          clang-tools
           flameGraph
-          gcc
           git-along
           git-lfs
           gitAndTools.gitFull
@@ -182,9 +172,9 @@ in
           linuxPackages.perf
           perf-tools
           pijul
-          poppler
           shellcheck
           unifdef
+          universal-ctags
         ];
         haskell-packages = [
           cabal-install
@@ -200,7 +190,6 @@ in
         ];
         lua-packages = [
           lua
-          luaPackages.lgi
           luaPackages.luacheck
         ];
         nix-packages = [
@@ -217,7 +206,7 @@ in
           haskellPackages.pandoc-citeproc
         ];
         python-packages = [
-          autoflake
+          pypi2nix
           python3Full
           python3Packages.pygments
         ];
@@ -264,7 +253,9 @@ in
           feh
           firefox
           ghostscript
+          gifski
           gimp
+          gnome3.geary
           gv
           home-manager
           imagemagick
@@ -274,6 +265,7 @@ in
           meld
           pdf2svg
           pdftk
+          peek
           potrace
           shutter
           spotify
