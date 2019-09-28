@@ -12,13 +12,19 @@ let
     # Configure Firefox
     firefox = {
       enableGoogleTalkPlugin = true;
+      enableBrowserpass = true;
+      enableGnomeExtensions = true;
     };
+  };
+  nixos-hardware = builtins.fetchTarball {
+    url = "https://github.com/NixOS/nixos-hardware/archive/043562906168ee6966b6409c89a2b219af1e9752.tar.gz";
+    sha256 = "060ggnrlcdsmzwx8yql005y3m5l3pr4sfdhq744s64b22cs5a739";
   };
   unstable = import <nixos-unstable> { config = baseConfig; };
 in
   {
     imports = [
-      <nixos-hardware/lenovo/thinkpad/x1>
+      "${nixos-hardware}/lenovo/thinkpad/x1"
       ./hardware-configuration.nix
       ./users.nix
       ./services.nix
@@ -61,9 +67,9 @@ in
 
     # Set your time zone.
     # Home: "Europe/Amsterdam";
-    #time.timeZone = "Europe/Amsterdam";
+    time.timeZone = "Europe/Oslo";
     # Virginia
-    time.timeZone = "America/New_York";
+    #time.timeZone = "America/New_York";
     # Colorado
     #time.timeZone = "America/Denver";
 
@@ -80,6 +86,7 @@ in
           keybase-gui = unstable.keybase-gui;
           peek = unstable.peek;
           pijul = unstable.pijul;
+          scribus = unstable.scribus;
           wavebox = unstable.wavebox;
         };
       };
@@ -177,15 +184,13 @@ in
           universal-ctags
         ];
         haskell-packages = [
-          cabal-install
-          cabal2nix
-          ghc
-          haskellPackages.apply-refact
-          haskellPackages.hasktags
-          haskellPackages.hindent
-          haskellPackages.hlint
-          haskellPackages.hoogle
-          haskellPackages.stylish-haskell
+          #ghc
+          #haskellPackages.apply-refact
+          #haskellPackages.hasktags
+          #haskellPackages.hindent
+          #haskellPackages.hlint
+          #haskellPackages.hoogle
+          #haskellPackages.stylish-haskell
           stack
         ];
         lua-packages = [
@@ -208,6 +213,7 @@ in
         python-packages = [
           pypi2nix
           python3Full
+          python3Packages.poetry
           python3Packages.pygments
         ];
         texlive-packages = [
@@ -260,17 +266,21 @@ in
           home-manager
           imagemagick
           inkscape
+          krita
           libreoffice
           liferea
           meld
+          nixnote2
           pdf2svg
           pdftk
           peek
           potrace
+          scribus
           shutter
           spotify
           vlc
           wavebox
+          zoom-us
         ];
       in
         core-packages
@@ -291,8 +301,21 @@ in
     # Some programs need SUID wrappers, can be configured further or are
     # started in user sessions.
     programs = {
+      browserpass.enable = true;
       fish.enable = true;
+      #light.enable = true;
       singularity.enable = true;
+      #ssh.startAgent = true;
+      #sway = {
+      #  enable = true;
+      #  extraPackages = with pkgs; [
+      #    dmenu
+      #    grim
+      #    swayidle
+      #    swaylock
+      #    xwayland
+      #  ];
+      #};
       tmux.enable = true;
     };
 

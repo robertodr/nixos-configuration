@@ -18,6 +18,8 @@
   };
 
   services = {
+    #actkbd.enable = true;
+
     hardware = {
       bolt.enable = true;
     };
@@ -38,6 +40,8 @@
     # Enable the X11 windowing system.
     xserver = {
       enable = true;
+      autoRepeatDelay = 200;
+      autoRepeatInterval = 25;
       enableCtrlAltBackspace = true;
       exportConfiguration = true;
       layout = "us";

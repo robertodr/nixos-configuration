@@ -13,6 +13,7 @@
       font-awesome-ttf
       font-awesome_4
       font-awesome_5
+      google-fonts
       gyre-fonts
       hack-font
       hasklig
@@ -20,6 +21,9 @@
       latinmodern-math
       lato
       monoid
+      nerdfonts
+      noto-fonts
+      open-sans
       source-code-pro
       source-sans-pro
       source-serif-pro

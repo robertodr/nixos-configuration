@@ -12,7 +12,7 @@ buildGoPackage rec {
   src = fetchgit {
     inherit rev;
     url = "https://github.com/nyarly/git-along";
-    sha256 = "1gk55vwwl5v3yb4v010a9y485qai8aqx446w18dbmycwi9zlryb0";
+    sha256 = "00aigic2d2rndmzgggb8343rc85jg8plmlhv1v27x9x2r7ck01ny";
   };
 
   goDeps = ./deps.nix;
