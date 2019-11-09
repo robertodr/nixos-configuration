@@ -13,7 +13,7 @@ let
     firefox = {
       enableGoogleTalkPlugin = true;
       enableBrowserpass = true;
-      enableGnomeExtensions = true;
+      #enableGnomeExtensions = true;
     };
   };
   nixos-hardware = builtins.fetchTarball {
@@ -85,7 +85,6 @@ in
           keybase = unstable.keybase;
           keybase-gui = unstable.keybase-gui;
           peek = unstable.peek;
-          pijul = unstable.pijul;
           scribus = unstable.scribus;
           wavebox = unstable.wavebox;
         };
@@ -185,12 +184,12 @@ in
         ];
         haskell-packages = [
           #ghc
-          #haskellPackages.apply-refact
-          #haskellPackages.hasktags
-          #haskellPackages.hindent
-          #haskellPackages.hlint
-          #haskellPackages.hoogle
-          #haskellPackages.stylish-haskell
+          haskellPackages.apply-refact
+          haskellPackages.hasktags
+          haskellPackages.hindent
+          haskellPackages.hlint
+          haskellPackages.hoogle
+          haskellPackages.stylish-haskell
           stack
         ];
         lua-packages = [
@@ -213,7 +212,6 @@ in
         python-packages = [
           pypi2nix
           python3Full
-          python3Packages.poetry
           python3Packages.pygments
         ];
         texlive-packages = [
@@ -247,6 +245,7 @@ in
              collection-publishers
              collection-xetex;
           })
+          tectonic
         ];
         user-packages = [
           aspell
@@ -256,7 +255,6 @@ in
           borgbackup
           chromium
           evince
-          feh
           firefox
           ghostscript
           gifski
@@ -294,7 +292,7 @@ in
         ++ texlive-packages
         ++ user-packages;
 
-      gnome3.excludePackages = with pkgs.gnome3; [ epiphany evolution totem vino yelp accerciser ];
+      gnome3.excludePackages = with pkgs.gnome3; [ epiphany totem ];
       variables.EDITOR = "emacs -nw";
     };
 
@@ -328,5 +326,5 @@ in
     # compatible, in order to avoid breaking some software such as database
     # servers. You should change this only after NixOS release notes say you
     # should.
-    system.stateVersion = "19.03"; # Did you read the comment?
+    system.stateVersion = "19.09"; # Did you read the comment?
   }

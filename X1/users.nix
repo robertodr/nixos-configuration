@@ -12,6 +12,7 @@
       "docker"
       "networkmanager"
       "root"
+      #"sway"
       "systemd-journal"
       "users"
       "video"
