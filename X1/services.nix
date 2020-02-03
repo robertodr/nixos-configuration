@@ -34,9 +34,6 @@
       ];
     };
 
-    kbfs.enable = true;
-    keybase.enable = true;
-
     # Enable the X11 windowing system.
     xserver = {
       enable = true;
