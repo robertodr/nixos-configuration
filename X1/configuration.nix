@@ -76,6 +76,7 @@ in
     #time.timeZone = "America/Denver";
 
     nixpkgs = {
+      config = baseConfig // { };
       overlays = [(self: super: {
         nix-home = super.callPackage ./pkgs/nix-home {};
       })];
