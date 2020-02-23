@@ -11,8 +11,9 @@ let
     allowBroken = false;
   };
   nixos-hardware = builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixos-hardware/archive/043562906168ee6966b6409c89a2b219af1e9752.tar.gz";
-    sha256 = "060ggnrlcdsmzwx8yql005y3m5l3pr4sfdhq744s64b22cs5a739";
+    # Fetched on 2020-02-23
+    url = "https://github.com/NixOS/nixos-hardware/archive/5904e7605c5c6b26994e3b49153feaa29c35e388.tar.gz";
+    sha256 = "1mij86a68j3cm97nx5gg6bkjsbv6nr5h3az7bcnghsxzy4w33lch";
   };
   unstable = import <nixos-unstable> { config = baseConfig; };
 in
@@ -91,20 +92,7 @@ in
     # Some programs need SUID wrappers, can be configured further or are
     # started in user sessions.
     programs = {
-      fish.enable = true;
-      #light.enable = true;
       singularity.enable = true;
-      #ssh.startAgent = true;
-      #sway = {
-      #  enable = true;
-      #  extraPackages = with pkgs; [
-      #    dmenu
-      #    grim
-      #    swayidle
-      #    swaylock
-      #    xwayland
-      #  ];
-      #};
     };
 
     virtualisation.docker = {

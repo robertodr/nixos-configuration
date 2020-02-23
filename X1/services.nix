@@ -18,20 +18,12 @@
   };
 
   services = {
-    #actkbd.enable = true;
-
     hardware = {
       bolt.enable = true;
     };
 
     printing = {
       enable = true;
-      drivers = with pkgs; [
-        gutenprint
-        gutenprintBin
-        hplip
-        hplipWithPlugin
-      ];
     };
 
     # Enable the X11 windowing system.
@@ -41,8 +33,6 @@
       autoRepeatInterval = 25;
       enableCtrlAltBackspace = true;
       exportConfiguration = true;
-      layout = "us";
-      xkbOptions = "eurosign:e";
       # Enable touchpad support.
       libinput = {
         enable = true;
@@ -59,20 +49,15 @@
       displayManager = {
         gdm.enable = true;
         gdm.wayland = true;
-        #lightdm = {
-        #  enable = true;
-        #  autoLogin.enable = false;
-        #  background = "/home/roberto/.background-image";
-        #};
       };
     };
 
     # Needed for U2F auth
-    pcscd.enable = true;
-    udev.packages = with pkgs; [
-      libu2f-host
-      yubikey-personalization
-    ];
+    #pcscd.enable = true;
+    #udev.packages = with pkgs; [
+    #  libu2f-host
+    #  yubikey-personalization
+    #];
   };
 
   systemd = {
