@@ -26,6 +26,8 @@
       enable = true;
     };
 
+    thermald.enable = true;
+
     # Enable the X11 windowing system.
     xserver = {
       enable = true;
@@ -48,7 +50,8 @@
       # Display manager
       displayManager = {
         gdm.enable = true;
-        gdm.wayland = true;
+        # FIXME true should be (and was) perfectly fine until 2020-02-23
+        gdm.wayland = false;
       };
     };
 

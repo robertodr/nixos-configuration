@@ -22,7 +22,7 @@
       createHome = true;
       isNormalUser = true;
       uid = 1000;
-      shell = "/run/current-system/sw/bin/fish";
+      shell = pkgs.fish;
     };
   };
 }
