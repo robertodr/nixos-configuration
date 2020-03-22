@@ -26,7 +26,8 @@
       enable = true;
     };
 
-    thermald.enable = true;
+    #thermald.enable = true;
+    tlp.enable = false;
 
     # Enable the X11 windowing system.
     xserver = {
@@ -64,6 +65,6 @@
   };
 
   systemd = {
-    tmpfiles.rules = ["d /tmp 1777 root root 10d"];
+    tmpfiles.rules = [ "d /tmp 1777 root root 10d" ];
   };
 }

@@ -7,7 +7,7 @@
     enableFontDir = true;
     enableGhostscriptFonts = true;
     fonts = with pkgs; [
-      corefonts           # Microsoft free fonts
+      corefonts # Microsoft free fonts
       dejavu_fonts
       fira-code
       fira-code-symbols
@@ -18,7 +18,7 @@
       gyre-fonts
       hack-font
       hasklig
-      inconsolata         # monospaced
+      inconsolata # monospaced
       latinmodern-math
       lato
       monoid
@@ -33,8 +33,8 @@
       tex-gyre-pagella-math
       tex-gyre-schola-math
       tex-gyre-termes-math
-      ubuntu_font_family  # Ubuntu fonts
-      unifont             # some international languages
+      ubuntu_font_family # Ubuntu fonts
+      unifont # some international languages
       xits-math
     ];
   };
