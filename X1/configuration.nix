@@ -8,6 +8,7 @@ let
   baseConfig = {
     # Allow proprietary packages
     allowUnfree = true;
+    # Allow (potentially) broken packages
     allowBroken = false;
   };
   nixos-hardware = builtins.fetchTarball {
@@ -77,7 +78,13 @@ in
   #time.timeZone = "America/Denver";
 
   nixpkgs = {
-    config = baseConfig // {};
+    config = baseConfig // {
+      packageOverrides = pkgs: {
+        borgbackup = unstable.borgbackup;
+        kbfs = unstable.kbfs;
+        keybase = unstable.keybase;
+      };
+    };
     overlays = [
       (
         self: super: {
@@ -89,6 +96,35 @@ in
 
   # List packages installed in system profile.
   environment = {
+    systemPackages = with pkgs; [
+      acpi
+      atool
+      binutils
+      borgbackup
+      cacert
+      coreutils
+      cryptsetup
+      curl
+      dmidecode
+      file
+      findutils
+      gnupg1
+      pass
+      pciutils
+      psmisc
+      rsync
+      tree
+      unrar
+      unzip
+      usbutils
+      wget
+      which
+      xbindkeys
+      xclip
+      xdg_utils
+      xsel
+      zip
+    ];
     gnome3.excludePackages = with pkgs.gnome3; [ epiphany totem ];
     variables.EDITOR = "emacs -nw";
   };

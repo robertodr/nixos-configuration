@@ -18,16 +18,15 @@
   };
 
   services = {
+    borgbackup.jobs = {};
+
     hardware = {
       bolt.enable = true;
     };
 
-    printing = {
-      enable = true;
-    };
-
-    #thermald.enable = true;
-    tlp.enable = false;
+    kbfs.enable = true;
+    keybase.enable = true;
+    printing.enable = true;
 
     # Enable the X11 windowing system.
     xserver = {
@@ -62,6 +61,8 @@
     #  libu2f-host
     #  yubikey-personalization
     #];
+    #thermald.enable = true;
+    tlp.enable = false;
   };
 
   systemd = {
