@@ -18,7 +18,22 @@
   };
 
   services = {
-    borgbackup.jobs = {};
+    borgbackup.jobs = {
+      roberto = rec {
+        user = "roberto";
+        paths = [ "/home/${user}/Pictures" ];
+        #exclude = [ "/nix" "'**/.cache'" ];
+        doInit = false;
+        repo = "fxppmn0g@fxppmn0g.repo.borgbase.com:repo";
+        encryption = {
+          mode = "repokey-blake2";
+          passCommand = "pass show ${repo}";
+        };
+        environment = { BORG_RSH = "ssh -i /home/${user}/.ssh"; };
+        compression = "auto,lzma";
+        startAt = "daily";
+      };
+    };
 
     hardware = {
       bolt.enable = true;
