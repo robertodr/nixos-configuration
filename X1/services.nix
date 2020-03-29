@@ -27,11 +27,11 @@
         repo = "fxppmn0g@fxppmn0g.repo.borgbase.com:repo";
         encryption = {
           mode = "repokey-blake2";
-          passCommand = "pass show ${repo}";
+          passCommand = "${pkgs.pass.out}/bin/pass show fxppmn0g.repo.borgbase.com";
         };
-        environment = { BORG_RSH = "ssh -i /home/${user}/.ssh"; };
+        environment = { BORG_RSH = "ssh -i /home/${user}/.ssh/id_ed25519"; };
         compression = "auto,lzma";
-        startAt = "daily";
+        startAt = "*-*-* 12:00:00";
       };
     };
 
