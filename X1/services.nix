@@ -21,7 +21,12 @@
     borgbackup.jobs = {
       roberto = rec {
         user = "roberto";
-        paths = [ "/home/${user}/Pictures" ];
+        paths = [
+          "/home/${user}/Documents"
+          "/home/${user}/Downloads"
+          "/home/${user}/Pictures"
+          "/home/${user}/texmf"
+        ];
         #exclude = [ "/nix" "'**/.cache'" ];
         doInit = false;
         repo = "fxppmn0g@fxppmn0g.repo.borgbase.com:repo";
@@ -31,7 +36,7 @@
         };
         environment = { BORG_RSH = "ssh -i /home/${user}/.ssh/id_ed25519"; };
         compression = "auto,lzma";
-        startAt = "*-*-* 12:00:00";
+        startAt = "Wed *-*-* 12:00:00";
       };
     };
 

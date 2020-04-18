@@ -3,7 +3,6 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
-
 let
   baseConfig = {
     # Allow proprietary packages
@@ -83,6 +82,7 @@ in
         borgbackup = unstable.borgbackup;
         kbfs = unstable.kbfs;
         keybase = unstable.keybase;
+        poetry = unstable.poetry;
       };
     };
     overlays = [
@@ -108,9 +108,11 @@ in
       dmidecode
       file
       findutils
+      gnome3.gnome-tweaks
       gnupg1
       pass
       pciutils
+      poetry
       psmisc
       rsync
       tree
