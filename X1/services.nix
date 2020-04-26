@@ -10,10 +10,6 @@
 
     bluetooth = {
       enable = true;
-      extraConfig = "
-        [General]
-        Enable=Source,Sink,Media,Socket
-      ";
     };
   };
 
@@ -70,8 +66,7 @@
       # Display manager
       displayManager = {
         gdm.enable = true;
-        # FIXME true should be (and was) perfectly fine until 2020-02-23
-        gdm.wayland = false;
+        gdm.wayland = true;
       };
     };
 
@@ -81,8 +76,8 @@
     #  libu2f-host
     #  yubikey-personalization
     #];
-    #thermald.enable = true;
-    tlp.enable = false;
+    thermald.enable = true;
+    #tlp.enable = false;
   };
 
   systemd = {

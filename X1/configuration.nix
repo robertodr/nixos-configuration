@@ -11,9 +11,9 @@ let
     allowBroken = false;
   };
   nixos-hardware = builtins.fetchTarball {
-    # Fetched on 2020-02-23
-    url = "https://github.com/NixOS/nixos-hardware/archive/5904e7605c5c6b26994e3b49153feaa29c35e388.tar.gz";
-    sha256 = "1mij86a68j3cm97nx5gg6bkjsbv6nr5h3az7bcnghsxzy4w33lch";
+    # Fetched on 2020-04-25
+    url = "https://github.com/NixOS/nixos-hardware/archive/d928c96e3c86423e829779c84eef70848b835923.tar.gz";
+    sha256 = "0mgsyahm4w8ngl50fajbnjg8vw6v6pjxcjk4a7zfnnyrhfiykpqv";
   };
   unstable = import <nixos-unstable> { config = baseConfig; };
 in
@@ -38,13 +38,12 @@ in
       efi.canTouchEfiVariables = true;
       grub.device = "/dev/nvme0n1";
     };
-    initrd.luks.devices = [
-      {
-        name = "root";
+    initrd.luks.devices = {
+      root = {
         device = "/dev/nvme0n1p3";
         preLVM = true;
-      }
-    ];
+      };
+    };
   };
 
   networking = {
@@ -62,9 +61,12 @@ in
   };
 
   # Select internationalisation properties.
+  console = {
+    font = "Lat2-Terminus16";
+    keyMap = "us";
+  };
+
   i18n = {
-    consoleFont = "Lat2-Terminus16";
-    consoleKeyMap = "us";
     defaultLocale = "en_US.UTF-8";
   };
 
@@ -111,6 +113,7 @@ in
       gnome3.gnome-tweaks
       gnupg1
       pass
+      patchelf
       pciutils
       poetry
       psmisc
@@ -146,5 +149,5 @@ in
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
-  system.stateVersion = "19.09"; # Did you read the comment?
+  system.stateVersion = "20.03"; # Did you read the comment?
 }
