@@ -4,12 +4,14 @@
   hardware = {
     pulseaudio = {
       enable = true;
+      extraModules = [ pkgs.pulseaudio-modules-bt ];
       package = pkgs.pulseaudioFull;
       extraConfig = "load-module module-switch-on-connect";
     };
 
     bluetooth = {
       enable = true;
+      config = { General = { Enable = "Source,Sink,Media,Socket"; }; };
     };
   };
 
@@ -67,6 +69,7 @@
       displayManager = {
         gdm.enable = true;
         gdm.wayland = true;
+        #gdm.wayland = false;
       };
     };
 
@@ -76,7 +79,7 @@
     #  libu2f-host
     #  yubikey-personalization
     #];
-    thermald.enable = true;
+    #thermald.enable = true;
     #tlp.enable = false;
   };
 

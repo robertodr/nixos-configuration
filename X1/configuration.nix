@@ -62,7 +62,6 @@ in
 
   # Select internationalisation properties.
   console = {
-    font = "Lat2-Terminus16";
     keyMap = "us";
   };
 
@@ -84,13 +83,14 @@ in
         borgbackup = unstable.borgbackup;
         kbfs = unstable.kbfs;
         keybase = unstable.keybase;
+        gnomeExtensions.paperwm = unstable.gnomeExtensions.paperwm;
         poetry = unstable.poetry;
       };
     };
     overlays = [
       (
         self: super: {
-          nix-home = super.callPackage ./pkgs/nix-home {};
+          nix-home = super.callPackage ./pkgs/nix-home { };
         }
       )
     ];
@@ -111,6 +111,7 @@ in
       file
       findutils
       gnome3.gnome-tweaks
+      gnomeExtensions.paperwm
       gnupg1
       pass
       patchelf
