@@ -83,6 +83,9 @@ in
             withKerberos = true;
             libkrb5 = post.heimdalFull;
           };
+          borgbackup = pre.borgbackup.override {
+            openssh = post.openssh_gssapi_heimdal;
+          };
         }
       )
     ];
@@ -131,6 +134,7 @@ in
       poetry
       psmisc
       rsync
+      sops
       squashfsTools
       tree
       unrar
