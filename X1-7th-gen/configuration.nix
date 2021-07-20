@@ -64,8 +64,6 @@ in
   nixpkgs = {
     config = baseConfig // {
       packageOverrides = pkgs: {
-        gnome-firmware-updater = unstable.gnome-firmware-updater;
-        gnomeExtensions.paperwm = unstable.gnomeExtensions.paperwm;
         kbfs = unstable.kbfs;
         keybase = unstable.keybase;
         keybase-gui = unstable.keybase-gui;
@@ -122,9 +120,6 @@ in
       dmidecode
       file
       findutils
-      gnome-firmware-updater
-      gnome3.gnome-tweaks
-      gnomeExtensions.paperwm
       gnupg1
       keybase-gui
       neovim
@@ -156,6 +151,7 @@ in
     browserpass.enable = true;
     singularity.enable = true;
     ssh.package = pkgs.openssh_gssapi_heimdal;
+    light.enable = true;
   };
 
   virtualisation = {

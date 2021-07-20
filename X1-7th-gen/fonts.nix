@@ -3,11 +3,16 @@
 {
   fonts = {
     enableGhostscriptFonts = true;
+    fontconfig = {
+      enable = true;
+      antialias = true;
+    };
     fonts = with pkgs; [
       corefonts # Microsoft free fonts
       dejavu_fonts
       fira-code
       fira-code-symbols
+      font-awesome-ttf
       google-fonts
       gyre-fonts
       hack-font
@@ -15,6 +20,8 @@
       inconsolata # monospaced
       latinmodern-math
       lato
+      material-design-icons
+      material-icons
       nerdfonts
       open-sans
       source-code-pro

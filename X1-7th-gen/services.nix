@@ -16,7 +16,19 @@
   };
 
   services = {
+    blueman.enable = true;
+
     flox.substituterAdded = true;
+
+    gnome3.gnome-keyring.enable = true;
+
+    upower.enable = true;
+
+    dbus = {
+      enable = true;
+      socketActivated = true;
+      packages = [ pkgs.gnome3.dconf ];
+    };
 
     borgbackup.jobs = {
       roberto = rec {
@@ -64,9 +76,15 @@
       autoRepeatInterval = 25;
       enableCtrlAltBackspace = true;
       exportConfiguration = true;
+      layout = "it(us),no";
+      xkbModel = "pc105";
+      xkbOptions = "grp:alt_shift_toggle";
       # Enable touchpad support.
       libinput = {
         enable = true;
+        mouse = {
+          naturalScrolling = true;
+        };
         touchpad = {
           naturalScrolling = true;
           scrollMethod = "twofinger";
@@ -75,23 +93,34 @@
       };
       # Desktop manager
       desktopManager = {
+        # maybe remove?
         gnome.enable = true;
         xterm.enable = false;
       };
       # Display manager
       displayManager = {
+        defaultSession = "none+i3";
         gdm.enable = true;
-        gdm.wayland = true;
+        # LightDM?
+        # no Wayland, just X11
+        gdm.wayland = false;
       };
       windowManager = {
         i3 = {
-          enable = false;
+          enable = true;
+          package = pkgs.i3-gaps;
+          extraPackages = with pkgs; [
+            i3lock
+            betterlockscreen
+          ];
         };
       };
     };
   };
 
   systemd = {
+    services.upower.enable = true;
+
     tmpfiles.rules = [ "d /tmp 1777 root root 10d" ];
   };
 }
